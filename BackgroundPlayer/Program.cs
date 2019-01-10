@@ -28,7 +28,7 @@ namespace BackgroundPlayer
                 {
                     UpdateImage.Refresh(image);
 
-                    await Task.Delay(1);
+                    await Task.Delay(42);
                 }
             }
 
