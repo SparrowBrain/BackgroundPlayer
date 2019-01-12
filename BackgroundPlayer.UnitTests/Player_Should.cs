@@ -1,6 +1,4 @@
-﻿using AutoFixture;
-using AutoFixture.AutoMoq;
-using AutoFixture.Xunit2;
+﻿using AutoFixture.Xunit2;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -13,19 +11,12 @@ namespace BackgroundPlayer.UnitTests
 {
     public class Player_Should
     {
-        private IFixture _fixture;
-
-        public Player_Should()
-        {
-            _fixture = new Fixture().Customize(new AutoMoqCustomization());
-        }
-
         [Theory]
-        [AutoData]
-        public async Task ThrowCancelledException_WhenCancellationToken([Frozen] Mock<IWindowsBackground> windowsBackgroundMock, Skin skin, CancellationTokenSource cancellationTokenSource)
+        [AutoMoqData]
+        public async Task ThrowCancelledException_WhenCancellationToken([Frozen] Mock<ISkinCalculator> skinCalculatorMock, Player player, Skin skin, CancellationTokenSource cancellationTokenSource)
         {
+            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>())).Returns(skin.Images);
             cancellationTokenSource.Cancel();
-            var player = _fixture.Create<Player>();
 
             Task Act() => player.PlaySkin(skin, cancellationTokenSource.Token);
 
@@ -33,22 +24,39 @@ namespace BackgroundPlayer.UnitTests
         }
 
         [Theory]
-        [AutoData]
-        public async Task SetAllImagesFromSkinInOrder([Frozen] Mock<IWindowsBackground> windowsBackgroundMock, Skin skin, CancellationTokenSource cancellationTokenSource)
+        [AutoMoqData]
+        public async Task GetNextImageFromSkinCalculator([Frozen] Mock<ISkinCalculator> skinCalculatorMock, IEnumerable<string> imagesToPlay, [Frozen] Mock<IWindowsBackground> windowsBackgroundMock, Player player, Skin skin, CancellationTokenSource cancellationTokenSource)
         {
-            var imagesSentToBackground = new List<string>();
-            windowsBackgroundMock.Setup(x => x.Refresh(It.IsAny<string>())).Callback<string>(x =>
-            {
-                imagesSentToBackground.Add(x);
-            });
-            var player = _fixture.Create<Player>();
+            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>())).Returns(imagesToPlay);
 
             await player.PlaySkin(skin, cancellationTokenSource.Token);
 
-            for (var i = 0; i < skin.Images.Count(); i++)
+            foreach (var image in imagesToPlay)
             {
-                Assert.Equal(skin.Images[i], imagesSentToBackground[i]);
+                windowsBackgroundMock.Verify(x => x.Refresh(image));
             }
+
+        }
+
+        [Theory]
+        [AutoMoqData]
+        public async Task StopPlayingWhenTheresNoNextImage([Frozen] Mock<IWindowsBackground> windowsBackgroundMock, Player player, Skin skin, CancellationTokenSource cancellationTokenSource)
+        {
+            await player.PlaySkin(skin, cancellationTokenSource.Token);
+
+            windowsBackgroundMock.Verify(x => x.Refresh(It.IsAny<string>()), Times.Never);
+
+        }
+
+        [Theory]
+        [AutoMoqData]
+        public async Task GetDelayFromSkinCalculator([Frozen] Mock<ISkinCalculator> skinCalculatorMock, [Frozen] Mock<IPacer> pacerMock, Player player, Skin skin, CancellationTokenSource cancellationTokenSource)
+        {
+            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>())).Returns(skin.Images);
+
+            await player.PlaySkin(skin, cancellationTokenSource.Token);
+            
+            pacerMock.Verify(x => x.Delay(skinCalculatorMock.Object.NextDelay(skin)));
         }
     }
 }

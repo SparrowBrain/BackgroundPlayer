@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -48,20 +49,31 @@ namespace BackgroundPlayer
 
     public class Player : IPlayer
     {
+        private readonly ISkinCalculator _skinCalculator;
         private readonly IWindowsBackground _windowsBackground;
+        private readonly IPacer _pacer;
 
-        public Player(IWindowsBackground windowsBackground)
+        public Player(ISkinCalculator skinCalculator, IWindowsBackground windowsBackground, IPacer pacer)
         {
+            _skinCalculator = skinCalculator;
             _windowsBackground = windowsBackground;
+            _pacer = pacer;
         }
 
         public async Task PlaySkin(Skin skin, CancellationToken cancellationToken)
         {
-            foreach (var image in skin.Images)
+            foreach (var image in _skinCalculator.NextImage(skin))
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
+                if (string.IsNullOrWhiteSpace(image))
+                {
+                    return;
+                }
+
                 _windowsBackground.Refresh(image);
+
+                await _pacer.Delay(_skinCalculator.NextDelay(skin));
             }
         }
     }
@@ -76,9 +88,46 @@ namespace BackgroundPlayer
         void Refresh(string path);
     }
 
+    public interface IPacer
+    {
+        Task Delay(TimeSpan time);
+    }
+
     public class Skin
     {
-        public IList<string> Images { get; set; }
+        public Skin(IList<string> images, TimeSpan duration)
+        {
+            Images = images;
+            Duration = duration;
+        }
+
+        public IList<string> Images { get; private set; }
+        public TimeSpan Duration { get; private set; }
+    }
+
+    public interface ISkinCalculator
+    {
+        TimeSpan NextDelay(Skin skin);
+        IEnumerable<string> NextImage(Skin skin);
+    }
+
+    public class SkinCalculator : ISkinCalculator
+    {
+        public SkinCalculator()
+        {
+            
+        }
+
+        public TimeSpan NextDelay(Skin skin)
+        {
+            var delay = skin.Duration / skin.Images.Count;
+            return delay;
+        }
+
+        public IEnumerable<string> NextImage(Skin skin)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     internal class SkinLoader
