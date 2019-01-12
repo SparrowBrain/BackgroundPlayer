@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BackgroundPlayer
@@ -24,7 +25,7 @@ namespace BackgroundPlayer
                 {
                     UpdateImage.Refresh(image);
 
-                    await Task.Delay(42);
+                    await Task.Delay(200);
                 }
             }
         }
@@ -40,8 +41,63 @@ namespace BackgroundPlayer
 
             public static void Refresh(string path)
             {
-                SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
+                SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE /*| SPIF_SENDWININICHANGE*/);
             }
         }
+    }
+
+    public class Player : IPlayer
+    {
+        private readonly IWindowsBackground _windowsBackground;
+
+        public Player(IWindowsBackground windowsBackground)
+        {
+            _windowsBackground = windowsBackground;
+        }
+
+        public async Task PlaySkin(Skin skin, CancellationToken cancellationToken)
+        {
+            foreach (var image in skin.Images)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                _windowsBackground.Refresh(image);
+            }
+        }
+    }
+
+    internal interface IPlayer
+    {
+        Task PlaySkin(Skin skin, CancellationToken cancellationToken);
+    }
+
+    public interface IWindowsBackground
+    {
+        void Refresh(string path);
+    }
+
+    public class Skin
+    {
+        public IList<string> Images { get; set; }
+    }
+
+    internal class SkinLoader
+    {
+        private readonly Configuration _configuration;
+
+        public SkinLoader(Configuration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public List<Skin> LoadSkins()
+        {
+            return new List<Skin>();
+        }
+    }
+
+    internal class Configuration
+    {
+        public string SkinsPath { get; set; } = ".\\skins";
     }
 }

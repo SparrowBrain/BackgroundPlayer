@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundPlayer", "BackGroundPlayer\BackgroundPlayer.csproj", "{969B11DF-8A88-4CDF-93E3-02A87A5D7E07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundPlayer.UnitTests", "BackgroundPlayer.UnitTests\BackgroundPlayer.UnitTests.csproj", "{CFB85925-2DE6-4A82-B4AC-ACBD12A1E102}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{969B11DF-8A88-4CDF-93E3-02A87A5D7E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{969B11DF-8A88-4CDF-93E3-02A87A5D7E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{969B11DF-8A88-4CDF-93E3-02A87A5D7E07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFB85925-2DE6-4A82-B4AC-ACBD12A1E102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFB85925-2DE6-4A82-B4AC-ACBD12A1E102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB85925-2DE6-4A82-B4AC-ACBD12A1E102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFB85925-2DE6-4A82-B4AC-ACBD12A1E102}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
