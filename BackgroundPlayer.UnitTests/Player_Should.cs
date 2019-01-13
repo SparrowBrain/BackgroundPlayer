@@ -15,7 +15,7 @@ namespace BackgroundPlayer.UnitTests
         [AutoMoqData]
         public async Task ThrowCancelledException_WhenCancellationToken([Frozen] Mock<ISkinCalculator> skinCalculatorMock, Player player, Skin skin, CancellationTokenSource cancellationTokenSource)
         {
-            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>())).Returns(skin.Images);
+            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>(), It.IsAny<DateTime>())).Returns(skin.Images);
             cancellationTokenSource.Cancel();
 
             Task Act() => player.PlaySkin(skin, cancellationTokenSource.Token);
@@ -27,7 +27,7 @@ namespace BackgroundPlayer.UnitTests
         [AutoMoqData]
         public async Task GetNextImageFromSkinCalculator([Frozen] Mock<ISkinCalculator> skinCalculatorMock, IEnumerable<string> imagesToPlay, [Frozen] Mock<IWindowsBackground> windowsBackgroundMock, Player player, Skin skin, CancellationTokenSource cancellationTokenSource)
         {
-            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>())).Returns(imagesToPlay);
+            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>(), It.IsAny<DateTime>())).Returns(imagesToPlay);
 
             await player.PlaySkin(skin, cancellationTokenSource.Token);
 
@@ -52,11 +52,11 @@ namespace BackgroundPlayer.UnitTests
         [AutoMoqData]
         public async Task GetDelayFromSkinCalculator([Frozen] Mock<ISkinCalculator> skinCalculatorMock, [Frozen] Mock<IPacer> pacerMock, Player player, Skin skin, CancellationTokenSource cancellationTokenSource)
         {
-            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>())).Returns(skin.Images);
+            skinCalculatorMock.Setup(x => x.NextImage(It.IsAny<Skin>(), It.IsAny<DateTime>())).Returns(skin.Images);
 
             await player.PlaySkin(skin, cancellationTokenSource.Token);
             
-            pacerMock.Verify(x => x.Delay(skinCalculatorMock.Object.NextDelay(skin)));
+            pacerMock.Verify(x => x.Delay(skinCalculatorMock.Object.NextDelay(skin, It.IsAny<DateTime>())));
         }
     }
 }
