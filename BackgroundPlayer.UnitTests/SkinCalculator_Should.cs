@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoFixture.AutoMoq;
+using BackgroundPlayer.Model;
 using Moq;
 using Xunit;
 
@@ -28,6 +29,8 @@ namespace BackgroundPlayer.UnitTests
                 return images;
             }));
             var skin = fixture.Create<Skin>();
+            skin.StartOffset.Month = null;
+            skin.StartOffset.Day = null;
             skin.StartOffset.Hour = null;
 
             var delay = skinCalculator.NextDelay(skin, start);
@@ -39,6 +42,8 @@ namespace BackgroundPlayer.UnitTests
         [AutoMoqData]
         public void ReturnNextImagesInOrder(SkinCalculator skinCalculator, Skin skin, DateTime start)
         {
+            skin.StartOffset.Month = null;
+            skin.StartOffset.Day = null;
             skin.StartOffset.Hour = null;
 
             var nextImages = skinCalculator.NextImage(skin, start);
@@ -53,7 +58,7 @@ namespace BackgroundPlayer.UnitTests
         [InlineAutoMoqData(12, 12, 0, "2019-01-12T00:00:00", "2019-01-12T00:00:00", 60)]
         [InlineAutoMoqData(12, 12, 0, "2019-01-12T00:00:00", "2019-01-12T00:30:00", 30)]
         [InlineAutoMoqData(12, 12, 6, "2019-01-12T13:22:06", "2019-01-12T16:30:00", 30)]
-        public void CalculateNextDelayToAccomodateForTheOffsetInTheDay(int imageCount, int durationHours, int offsetHour, DateTime start, DateTime now, int expectedDelayMinutes, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
+        public void CalculateNextDelayToAccomodateForTheHourOffset(int imageCount, int durationHours, int offsetHour, DateTime start, DateTime now, int expectedDelayMinutes, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
         {
             var fixture = new Fixture();
             dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
@@ -68,6 +73,8 @@ namespace BackgroundPlayer.UnitTests
                 return images;
             }));
             var skin = fixture.Create<Skin>();
+            skin.StartOffset.Month = null;
+            skin.StartOffset.Day = null;
             skin.StartOffset.Hour = offsetHour;
 
             var delay = skinCalculator.NextDelay(skin, start);
@@ -80,7 +87,7 @@ namespace BackgroundPlayer.UnitTests
         [InlineAutoMoqData(12, 12, 0, "2019-01-12T00:00:00", "2019-01-12T00:00:00", 0)]
         [InlineAutoMoqData(12, 12, 0, "2019-01-12T00:00:00", "2019-01-12T00:30:00", 0)]
         [InlineAutoMoqData(12, 12, 6, "2019-01-12T13:22:06", "2019-01-12T16:30:00", 10)]
-        public void ReturnNextImageWhileAccomodatingTheOffsetInTheDay(int imageCount, int durationHours, int offsetHour, DateTime start, DateTime now, int imageIndex, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
+        public void ReturnNextImageWhileAccomodatingTheHourOffset(int imageCount, int durationHours, int offsetHour, DateTime start, DateTime now, int imageIndex, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
         {
             var fixture = new Fixture();
             dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
@@ -95,7 +102,68 @@ namespace BackgroundPlayer.UnitTests
                 return images;
             }));
             var skin = fixture.Create<Skin>();
+            skin.StartOffset.Month = null;
+            skin.StartOffset.Day= null;
             skin.StartOffset.Hour = offsetHour;
+
+            var nextImages = skinCalculator.NextImage(skin, start);
+
+            Assert.Equal(skin.Images[imageIndex], nextImages.First());
+        }
+
+        [Theory]
+        [InlineAutoMoqData(30, 30, 1, 1, "2019-01-01T00:00:00", "2019-01-01T00:00:00", 1*24)]
+        [InlineAutoMoqData(3, 30, 1, 1, "2019-01-01T00:00:00", "2019-01-01T00:00:00", 10*24)]
+        [InlineAutoMoqData(3, 30, 1, 1, "2019-01-01T00:00:00", "2019-01-05T12:00:00", 5.5*24)]
+        [InlineAutoMoqData(3, 30, 1, 2, "2019-01-01T00:00:00", "2019-01-05T00:00:00", 7*24)]
+        public void CalculateNextDelayToAccomodateForTheDayOffset(int imageCount, int durationDays, int offsetMonth, int offsetDay, DateTime start, DateTime now, int expectedDelayHours, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
+        {
+            var fixture = new Fixture();
+            dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
+            fixture.Register(() => TimeSpan.FromDays(durationDays));
+            fixture.Register((Func<IList<string>>)(() =>
+            {
+                var images = new List<string>();
+                for (var i = 0; i < imageCount; i++)
+                {
+                    images.Add(fixture.Create<string>());
+                }
+                return images;
+            }));
+            var skin = fixture.Create<Skin>();
+            skin.StartOffset.Month = offsetMonth;
+            skin.StartOffset.Day = offsetDay;
+            skin.StartOffset.Hour = null;
+
+            var delay = skinCalculator.NextDelay(skin, start);
+
+            Assert.Equal(TimeSpan.FromHours(expectedDelayHours), delay);
+        }
+
+        [Theory]
+        [InlineAutoMoqData(30, 30, 1, 1, "2019-01-01T00:00:00", "2019-01-12T00:00:00", 11)]
+        [InlineAutoMoqData(3, 30, 1, 1, "2019-01-01T00:00:00", "2019-01-12T00:00:00", 1)]
+        [InlineAutoMoqData(12, 365, 1, 1, "2019-02-01T00:00:00", "2019-06-12T00:00:00", 5)]
+        [InlineAutoMoqData(12, 365, 3, 1, "2019-05-01T00:00:00", "2019-06-12T00:00:00", 3)]
+        public void ReturnNextImageWhileAccomodatingTheDayOffset(int imageCount, int durationDays, int offsetMonth, int offsetDay, DateTime start, DateTime now, int imageIndex, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
+        {
+            var fixture = new Fixture();
+            dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
+            fixture.Register(() => TimeSpan.FromDays(durationDays));
+            fixture.Register((Func<IList<string>>)(() =>
+            {
+                var images = new List<string>();
+                for (var i = 0; i < imageCount; i++)
+                {
+                    images.Add(fixture.Create<string>());
+                }
+                return images;
+            }));
+            var skin = fixture.Create<Skin>();
+            skin.StartOffset.Month = offsetMonth;
+            skin.StartOffset.Day = offsetDay;
+            skin.StartOffset.Hour = null;
+
 
             var nextImages = skinCalculator.NextImage(skin, start);
 

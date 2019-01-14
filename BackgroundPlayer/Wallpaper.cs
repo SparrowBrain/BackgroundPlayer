@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
+using BackgroundPlayer.Model;
 
 namespace BackgroundPlayer
 {
@@ -45,141 +44,6 @@ namespace BackgroundPlayer
                 SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE /*| SPIF_SENDWININICHANGE*/);
             }
         }
-    }
-
-    public class Player : IPlayer
-    {
-        private readonly ISkinCalculator _skinCalculator;
-        private readonly IWindowsBackground _windowsBackground;
-        private readonly IPacer _pacer;
-        private readonly IDateTimeProvider _dateTimeProvider;
-
-        public Player(ISkinCalculator skinCalculator, IWindowsBackground windowsBackground, IPacer pacer, IDateTimeProvider dateTimeProvider)
-        {
-            _skinCalculator = skinCalculator;
-            _windowsBackground = windowsBackground;
-            _pacer = pacer;
-            _dateTimeProvider = dateTimeProvider;
-        }
-
-        public async Task PlaySkin(Skin skin, CancellationToken cancellationToken)
-        {
-            var start = _dateTimeProvider.Now();
-            foreach (var image in _skinCalculator.NextImage(skin, start))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                if (string.IsNullOrWhiteSpace(image))
-                {
-                    return;
-                }
-
-                _windowsBackground.Refresh(image);
-
-                await _pacer.Delay(_skinCalculator.NextDelay(skin, start));
-            }
-        }
-    }
-
-    internal interface IPlayer
-    {
-        Task PlaySkin(Skin skin, CancellationToken cancellationToken);
-    }
-
-    public interface IWindowsBackground
-    {
-        void Refresh(string path);
-    }
-
-    public interface IPacer
-    {
-        Task Delay(TimeSpan time);
-    }
-
-    public class Skin
-    {
-        public Skin(IList<string> images, TimeSpan duration, StartOffset startOffset)
-        {
-            Images = images;
-            Duration = duration;
-            StartOffset = startOffset;
-        }
-
-        public IList<string> Images { get; }
-        public TimeSpan Duration { get; }
-        public StartOffset StartOffset { get; }
-    }
-
-    public class StartOffset
-    {
-        public int? Month { get; set; }
-        public int? Day { get; set; }
-
-        public int? Hour { get; set; }
-    }
-
-    public interface ISkinCalculator
-    {
-        TimeSpan NextDelay(Skin skin, DateTime playbackStart);
-
-        IEnumerable<string> NextImage(Skin skin, DateTime playbackStart);
-    }
-
-    public class SkinCalculator : ISkinCalculator
-    {
-        private readonly IDateTimeProvider _dateTimeProvider;
-
-        public SkinCalculator(IDateTimeProvider dateTimeProvider)
-        {
-            _dateTimeProvider = dateTimeProvider;
-        }
-
-        public TimeSpan NextDelay(Skin skin, DateTime playbackStart)
-        {
-            var imageDuration = skin.Duration / skin.Images.Count;
-            if (skin.StartOffset.Hour.HasValue)
-            {
-                var startAdjustedWithOffset = new DateTime(playbackStart.Year,
-                    playbackStart.Month,
-                    playbackStart.Day,
-                    skin.StartOffset.Hour.Value,
-                    00,
-                    00);
-
-                var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
-                return imageDuration - TimeSpan.FromMilliseconds(timeSinceStart.TotalMilliseconds % imageDuration.TotalMilliseconds);
-            }
-
-            return imageDuration;
-        }
-
-        public IEnumerable<string> NextImage(Skin skin, DateTime playbackStart)
-        {
-            if (skin.StartOffset.Hour.HasValue)
-            {
-                var imageDuration = skin.Duration / skin.Images.Count;
-                var startAdjustedWithOffset = new DateTime(playbackStart.Year,
-                    playbackStart.Month,
-                    playbackStart.Day,
-                    skin.StartOffset.Hour.Value,
-                    00,
-                    00);
-
-                var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
-                var index = (int)(timeSinceStart.TotalMilliseconds / imageDuration.TotalMilliseconds);
-                yield return skin.Images[index];
-            }
-
-            foreach (var image in skin.Images)
-            {
-                yield return image;
-            }
-        }
-    }
-
-    public interface IDateTimeProvider
-    {
-        DateTime Now();
     }
 
     internal class SkinLoader
