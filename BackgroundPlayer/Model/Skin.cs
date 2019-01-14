@@ -13,7 +13,9 @@ namespace BackgroundPlayer.Model
         }
 
         public IList<string> Images { get; }
+
         public TimeSpan Duration { get; }
+
         public StartOffset StartOffset { get; }
     }
 }

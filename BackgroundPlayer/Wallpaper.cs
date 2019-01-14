@@ -2,7 +2,6 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using BackgroundPlayer.Model;
 
 namespace BackgroundPlayer
 {
@@ -32,37 +31,10 @@ namespace BackgroundPlayer
 
         private class UpdateImage
         {
-            private static readonly int SPI_SETDESKWALLPAPER = 0x14;
-            private static readonly int SPIF_UPDATEINIFILE = 0x01;
-            private static readonly int SPIF_SENDWININICHANGE = 0x02;
-
-            [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-            private static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
-
-            public static void Refresh(string path)
+            public static void Refresh(string image)
             {
-                SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE /*| SPIF_SENDWININICHANGE*/);
+                throw new System.NotImplementedException();
             }
         }
-    }
-
-    internal class SkinLoader
-    {
-        private readonly Configuration _configuration;
-
-        public SkinLoader(Configuration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        public List<Skin> LoadSkins()
-        {
-            return new List<Skin>();
-        }
-    }
-
-    internal class Configuration
-    {
-        public string SkinsPath { get; set; } = ".\\skins";
     }
 }
