@@ -14,7 +14,8 @@ namespace BackgroundPlayer
 
         public void Refresh(string path)
         {
-            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, Path.GetFullPath(path), SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
+            var fullPath = Path.GetFullPath(path);
+            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, fullPath, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
         }
     }
 }

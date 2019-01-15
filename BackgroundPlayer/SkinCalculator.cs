@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BackgroundPlayer.Model;
+using System;
 using System.Collections.Generic;
-using BackgroundPlayer.Model;
 
 namespace BackgroundPlayer
 {
@@ -29,19 +29,21 @@ namespace BackgroundPlayer
 
         public IEnumerable<string> NextImage(Skin skin, DateTime playbackStart)
         {
-            if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
-            {
-                var imageDuration = skin.Duration / skin.Images.Count;
-                var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
-
-                var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
-                var index = (int)(timeSinceStart.TotalMilliseconds / imageDuration.TotalMilliseconds);
-                yield return skin.Images[index];
-            }
-
             foreach (var image in skin.Images)
             {
-                yield return image;
+                if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
+                {
+                    var imageDuration = skin.Duration / skin.Images.Count;
+                    var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
+
+                    var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
+                    var index = (int)(timeSinceStart.TotalMilliseconds / imageDuration.TotalMilliseconds);
+                    yield return skin.Images[index];
+                }
+                else
+                {
+                    yield return image;
+                }
             }
         }
 
