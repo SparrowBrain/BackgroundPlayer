@@ -6,6 +6,7 @@ using BackgroundPlayer.Infrastructure;
 using BackgroundPlayer.Model;
 
 [assembly: InternalsVisibleTo("BackgroundPlayer.UnitTests")]
+[assembly: InternalsVisibleTo("BackgroundPlayer.IntegrationTests")]
 namespace BackgroundPlayer
 {
     internal class Program

@@ -7,11 +7,11 @@ using Newtonsoft.Json;
 
 namespace BackgroundPlayer.Configuration
 {
-    internal class SkinLoader
+    public class SkinLoader
     {
-        private readonly BackgroundPlayer.Configuration.Configuration _configuration;
+        private readonly Configuration _configuration;
 
-        public SkinLoader(BackgroundPlayer.Configuration.Configuration configuration)
+        public SkinLoader(Configuration configuration)
         {
             _configuration = configuration;
         }
