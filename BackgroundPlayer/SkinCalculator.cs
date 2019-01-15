@@ -38,6 +38,11 @@ namespace BackgroundPlayer
 
                     var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
                     var index = (int)(timeSinceStart.TotalMilliseconds / imageDuration.TotalMilliseconds);
+                    if (index >= skin.Images.Count)
+                    {
+                        break;
+                    }
+
                     yield return skin.Images[index];
                 }
                 else
