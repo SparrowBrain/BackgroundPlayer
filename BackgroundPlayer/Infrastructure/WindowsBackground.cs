@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Infrastructure
 {
     internal class WindowsBackground : IWindowsBackground
     {

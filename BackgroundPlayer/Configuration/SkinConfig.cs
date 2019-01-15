@@ -1,6 +1,6 @@
 ﻿using BackgroundPlayer.Model;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Configuration
 {
     internal class SkinConfig
     {

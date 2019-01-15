@@ -1,4 +1,4 @@
-﻿namespace BackgroundPlayer
+﻿namespace BackgroundPlayer.Configuration
 {
     internal class Configuration
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BackgroundPlayer.Infrastructure;
 
 namespace BackgroundPlayer
 {

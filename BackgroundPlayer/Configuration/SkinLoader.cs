@@ -5,13 +5,13 @@ using System.Linq;
 using BackgroundPlayer.Model;
 using Newtonsoft.Json;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Configuration
 {
     internal class SkinLoader
     {
-        private readonly Configuration _configuration;
+        private readonly BackgroundPlayer.Configuration.Configuration _configuration;
 
-        public SkinLoader(Configuration configuration)
+        public SkinLoader(BackgroundPlayer.Configuration.Configuration configuration)
         {
             _configuration = configuration;
         }

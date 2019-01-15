@@ -1,8 +1,8 @@
-﻿using BackgroundPlayer.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using BackgroundPlayer.Infrastructure;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Model
 {
     public class SkinCalculator : ISkinCalculator
     {

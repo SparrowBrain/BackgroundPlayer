@@ -1,4 +1,4 @@
-﻿namespace BackgroundPlayer
+﻿namespace BackgroundPlayer.Infrastructure
 {
     public interface IWindowsBackground
     {

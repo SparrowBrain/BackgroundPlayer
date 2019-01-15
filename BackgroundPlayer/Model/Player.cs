@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using BackgroundPlayer.Model;
+using BackgroundPlayer.Infrastructure;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Model
 {
     public class Player : IPlayer
     {

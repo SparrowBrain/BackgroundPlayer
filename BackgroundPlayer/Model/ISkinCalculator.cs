@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using BackgroundPlayer.Model;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Model
 {
     public interface ISkinCalculator
     {

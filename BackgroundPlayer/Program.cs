@@ -1,6 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using BackgroundPlayer.Configuration;
+using BackgroundPlayer.Infrastructure;
+using BackgroundPlayer.Model;
 
 [assembly: InternalsVisibleTo("BackgroundPlayer.UnitTests")]
 namespace BackgroundPlayer
@@ -9,7 +12,7 @@ namespace BackgroundPlayer
     {
         public static async Task Main(string[] args)
         {
-            var skinLoader = new SkinLoader(new Configuration());
+            var skinLoader = new SkinLoader(new Configuration.Configuration());
             var skins = skinLoader.LoadSkins();
 
             var dateTimeProvider = new DateTimeProvider();
