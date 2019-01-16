@@ -11,9 +11,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="skins\mars\skin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Folder Include="skins\" />
   </ItemGroup>
 
 </Project>

@@ -1,36 +1,34 @@
-﻿using System;
-using System.Linq;
-using AutoFixture;
-using AutoFixture.Xunit2;
+﻿using AutoFixture;
 using BackgroundPlayer.Configuration;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace BackgroundPlayer.IntegrationTests
 {
-    public class SkinLoader_Should
+    public class SkinLoader_Should : IClassFixture<SkinFileFixture>
     {
-        public SkinLoader_Should()
+        private readonly SkinFileFixture _skinFileFixture;
+
+        public SkinLoader_Should(SkinFileFixture skinFileFixture)
         {
-            
+            _skinFileFixture = skinFileFixture;
         }
 
         [Fact]
         public void LoadSkinWithImages()
         {
-            var fixture = new Fixture();
-            fixture.Register(() => ".\\skins");
-            var skinLoader = fixture.Create<SkinLoader>();
+            _skinFileFixture.Fixture.Register(() => _skinFileFixture.SkinsPath);
+            var skinLoader = _skinFileFixture.Fixture.Create<SkinLoader>();
 
             var skins = skinLoader.LoadSkins();
 
             Assert.NotEmpty(skins);
             var skin = skins.First();
-            Assert.Equal(TimeSpan.FromMilliseconds(60000), skin.Duration);
-            Assert.Null(skin.StartOffset.Month);
-            Assert.Null(skin.StartOffset.Day);
-            Assert.Null(skin.StartOffset.Hour);
+            Assert.Equal(TimeSpan.FromMilliseconds(_skinFileFixture.SkinConfig.DurationMillisecods), skin.Duration);
+            Assert.Equal(_skinFileFixture.SkinConfig.StartOffset, skin.StartOffset);
             Assert.NotEmpty(skin.Images);
-            Assert.Equal(2, skin.Images.Count);
+            Assert.Equal(_skinFileFixture.ImageFiles, skin.Images);
         }
     }
 }

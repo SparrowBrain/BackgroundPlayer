@@ -2,7 +2,7 @@
 
 namespace BackgroundPlayer.Configuration
 {
-    internal class SkinConfig
+    public class SkinConfig
     {
         public int DurationMillisecods { get; set; }
 

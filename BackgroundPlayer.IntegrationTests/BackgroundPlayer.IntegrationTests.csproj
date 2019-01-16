@@ -23,20 +23,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="skins\test\images\test_01.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="skins\test\images\test_02.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="skins\test\skin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="skins\test\images\" />
-  </ItemGroup>
-
 </Project>
