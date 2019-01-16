@@ -227,5 +227,25 @@ namespace BackgroundPlayer.UnitTests
 
             Assert.Empty(nextImages);
         }
+
+        [Theory]
+        [InlineAutoMoqData(24, 24, null, null, 2, "2019-04-15T00:00:00", 22)]
+        [InlineAutoMoqData(30, 30*24, null, 17, null, "2019-04-15T00:00:00", 29)]
+        [InlineAutoMoqData(12, 365*24, 5, null, null, "2019-04-15T00:00:00", 11)]
+        public void PushStartBackWhenOffsetsPutStartInTheFuture(int imageCount, int durationHours, int? offsetMonth, int? offsetDay, int? offsetHour, DateTime now, int expectedIndex, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
+        {
+            var fixture = new Fixture();
+            dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
+            fixture.Register(() => TimeSpan.FromHours(durationHours));
+            fixture.Register(() => (IList<string>) fixture.CreateMany<string>(imageCount).ToList());
+            var skin = fixture.Create<Skin>();
+            skin.StartOffset.Month = offsetMonth;
+            skin.StartOffset.Day = offsetDay;
+            skin.StartOffset.Hour = offsetHour;
+
+            var nextImages = skinCalculator.NextImage(skin, now);
+
+            Assert.Equal(skin.Images[expectedIndex], nextImages.First());
+        }
     }
 }

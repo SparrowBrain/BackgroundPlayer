@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BackgroundPlayer.Infrastructure;
+using System;
 using System.Collections.Generic;
-using BackgroundPlayer.Infrastructure;
 
 namespace BackgroundPlayer.Model
 {
@@ -52,7 +52,7 @@ namespace BackgroundPlayer.Model
             }
         }
 
-        private static DateTime AdjustStartTimeWithOffset(Skin skin, DateTime playbackStart)
+        private DateTime AdjustStartTimeWithOffset(Skin skin, DateTime playbackStart)
         {
             var startAdjustedWithOffset = new DateTime(playbackStart.Year,
                 skin.StartOffset.Month ?? playbackStart.Month,
@@ -60,6 +60,42 @@ namespace BackgroundPlayer.Model
                 skin.StartOffset.Hour ?? playbackStart.Hour,
                 00,
                 00);
+
+            var now = _dateTimeProvider.Now();
+            if (startAdjustedWithOffset > now)
+            {
+                startAdjustedWithOffset = PushBackStartAdjustedWithOffset(startAdjustedWithOffset, now);
+            }
+
+            return startAdjustedWithOffset;
+        }
+
+        private static DateTime PushBackStartAdjustedWithOffset(DateTime startAdjustedWithOffset, DateTime now)
+        {
+            var year = startAdjustedWithOffset.Year;
+            var month = startAdjustedWithOffset.Month;
+            var day = startAdjustedWithOffset.Day;
+
+            if (startAdjustedWithOffset.Month > now.Month)
+            {
+                year--;
+            }
+            else if (startAdjustedWithOffset.Day > now.Day)
+            {
+                month--;
+            }
+            else if (startAdjustedWithOffset.Hour > now.Hour)
+            {
+                day--;
+            }
+
+            startAdjustedWithOffset = new DateTime(year,
+                month,
+                day,
+                startAdjustedWithOffset.Hour,
+                startAdjustedWithOffset.Minute,
+                startAdjustedWithOffset.Second);
+
             return startAdjustedWithOffset;
         }
     }
