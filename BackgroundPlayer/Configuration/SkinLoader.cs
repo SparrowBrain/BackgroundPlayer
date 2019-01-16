@@ -30,8 +30,7 @@ namespace BackgroundPlayer.Configuration
                 var skinJson = File.ReadAllText(skinFile);
                 var skinConfig = JsonConvert.DeserializeObject<SkinConfig>(skinJson);
                 var imagesPath = Path.Combine(skinFolder, "images");
-                var images = Directory.EnumerateFiles(imagesPath);
-                    //.Where(x => new[] { "png", "jpg" }.Contains(Path.GetExtension((string) x)));
+                var images = Directory.EnumerateFiles(imagesPath).Where(x=> new[] { ".png", ".jpg" }.Contains(Path.GetExtension(x)));
 
                 skins.Add(new Skin(images.ToList(), TimeSpan.FromMilliseconds(skinConfig.DurationMillisecods), skinConfig.StartOffset));
             }

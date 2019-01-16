@@ -1,26 +1,30 @@
-﻿using System.Runtime.CompilerServices;
+﻿using BackgroundPlayer.Configuration;
+using BackgroundPlayer.Model;
+using SimpleInjector;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Infrastructure;
-using BackgroundPlayer.Model;
 
 [assembly: InternalsVisibleTo("BackgroundPlayer.UnitTests")]
 [assembly: InternalsVisibleTo("BackgroundPlayer.IntegrationTests")]
+
 namespace BackgroundPlayer
 {
     internal class Program
     {
+        private static readonly Container Container;
+
+        static Program()
+        {
+            Container = new Registry.Registry().Setup();
+        }
+
         public static async Task Main(string[] args)
         {
-            var skinLoader = new SkinLoader(new Configuration.Configuration());
+            var skinLoader = Container.GetInstance<SkinLoader>();
             var skins = skinLoader.LoadSkins();
 
-            var dateTimeProvider = new DateTimeProvider();
-            var skinCalculator = new SkinCalculator(dateTimeProvider);
-            var windowsBackground = new WindowsBackground();
-            var pacer = new Pacer();
-            var player = new Player(skinCalculator, windowsBackground, pacer, dateTimeProvider);
+            var player = Container.GetInstance<IPlayer>();
 
             var cancellationTokenSource = new CancellationTokenSource();
 
