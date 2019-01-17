@@ -19,37 +19,10 @@ namespace BackgroundPlayer.Model
             if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
             {
                 var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
-
-                var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
-                return imageDuration - TimeSpan.FromMilliseconds(timeSinceStart.TotalMilliseconds % imageDuration.TotalMilliseconds);
+                return TimeLeftInCurrentIteration(imageDuration, startAdjustedWithOffset);
             }
 
             return imageDuration;
-        }
-
-        public IEnumerable<string> NextImage(Skin skin, DateTime playbackStart)
-        {
-            foreach (var image in skin.Images)
-            {
-                if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
-                {
-                    var imageDuration = skin.Duration / skin.Images.Count;
-                    var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
-
-                    var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
-                    var index = (int)(timeSinceStart.TotalMilliseconds / imageDuration.TotalMilliseconds);
-                    if (index >= skin.Images.Count)
-                    {
-                        break;
-                    }
-
-                    yield return skin.Images[index];
-                }
-                else
-                {
-                    yield return image;
-                }
-            }
         }
 
         private DateTime AdjustStartTimeWithOffset(Skin skin, DateTime playbackStart)
@@ -68,6 +41,43 @@ namespace BackgroundPlayer.Model
             }
 
             return startAdjustedWithOffset;
+        }
+
+        public IEnumerable<string> NextImage(Skin skin, DateTime playbackStart)
+        {
+            foreach (var image in skin.Images)
+            {
+                if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
+                {
+                    var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
+                    var index = GetImageIteration(skin, startAdjustedWithOffset);
+                    if (index >= skin.Images.Count)
+                    {
+                        break;
+                    }
+
+                    yield return skin.Images[index];
+                }
+                else
+                {
+                    yield return image;
+                }
+            }
+        }
+
+        private TimeSpan TimeLeftInCurrentIteration(TimeSpan imageDuration, DateTime startAdjustedWithOffset)
+        {
+            var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
+            return imageDuration -
+                   TimeSpan.FromMilliseconds(timeSinceStart.TotalMilliseconds % imageDuration.TotalMilliseconds);
+        }
+
+        private int GetImageIteration(Skin skin, DateTime startAdjustedWithOffset)
+        {
+            var imageDuration = skin.Duration / skin.Images.Count;
+            var timeSinceStart = _dateTimeProvider.Now() - startAdjustedWithOffset;
+            var index = (int)(timeSinceStart.TotalMilliseconds / imageDuration.TotalMilliseconds);
+            return index;
         }
 
         private static DateTime PushBackStartAdjustedWithOffset(DateTime startAdjustedWithOffset, DateTime now)

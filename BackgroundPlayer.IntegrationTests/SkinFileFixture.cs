@@ -1,10 +1,11 @@
-﻿using System;
+﻿using AutoFixture;
+using AutoFixture.Kernel;
+using BackgroundPlayer.Configuration;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AutoFixture;
-using BackgroundPlayer.Configuration;
-using Newtonsoft.Json;
 
 namespace BackgroundPlayer.IntegrationTests
 {
@@ -32,6 +33,11 @@ namespace BackgroundPlayer.IntegrationTests
             {
                 File.WriteAllText(image, string.Empty);
             }
+
+            Fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(ISkinValidator),
+                    typeof(SkinValidator)));
         }
 
         public void Dispose()

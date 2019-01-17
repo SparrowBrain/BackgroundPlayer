@@ -1,19 +1,21 @@
-﻿using System;
+﻿using BackgroundPlayer.Model;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BackgroundPlayer.Model;
-using Newtonsoft.Json;
 
 namespace BackgroundPlayer.Configuration
 {
     public class SkinLoader
     {
         private readonly Configuration _configuration;
+        private readonly ISkinValidator _skinValidator;
 
-        public SkinLoader(Configuration configuration)
+        public SkinLoader(Configuration configuration, ISkinValidator skinValidator)
         {
             _configuration = configuration;
+            _skinValidator = skinValidator;
         }
 
         public List<Skin> LoadSkins()
@@ -30,7 +32,7 @@ namespace BackgroundPlayer.Configuration
                 var skinJson = File.ReadAllText(skinFile);
                 var skinConfig = JsonConvert.DeserializeObject<SkinConfig>(skinJson);
                 var imagesPath = Path.Combine(skinFolder, "images");
-                var images = Directory.EnumerateFiles(imagesPath).Where(x=> new[] { ".png", ".jpg" }.Contains(Path.GetExtension(x)));
+                var images = Directory.EnumerateFiles(imagesPath).Where(x => _skinValidator.ValidImageExtension(x));
 
                 skins.Add(new Skin(images.ToList(), TimeSpan.FromMilliseconds(skinConfig.DurationMillisecods), skinConfig.StartOffset));
             }

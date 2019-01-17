@@ -3,9 +3,9 @@ using BackgroundPlayer.Infrastructure;
 using BackgroundPlayer.Model;
 using SimpleInjector;
 
-namespace BackgroundPlayer.Registry
+namespace BackgroundPlayer
 {
-    internal class Registry
+    internal class SimpleInjectConfig
     {
         public Container Setup()
         {
@@ -19,6 +19,7 @@ namespace BackgroundPlayer.Registry
             container.Register<ISkinCalculator, SkinCalculator>(Lifestyle.Singleton);
 
             container.Register<Configuration.Configuration>();
+            container.Register<ISkinValidator, SkinValidator>();
             container.Register<SkinLoader>();
 
             container.Verify();

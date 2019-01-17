@@ -17,7 +17,7 @@ namespace BackgroundPlayer
 
         static Program()
         {
-            Container = new Registry.Registry().Setup();
+            Container = new SimpleInjectConfig().Setup();
         }
 
         public static async Task Main(string[] args)
@@ -35,9 +35,6 @@ namespace BackgroundPlayer
                 var skin = skins[random.Next(skins.Count)];
                 await player.PlaySkin(skin, cancellationTokenSource.Token);
             }
-
-            //await BackgroundPlayer.Wallpaper.RunWallpaperVideo();
-            //await LockScreen.Rotate();
         }
     }
 }
