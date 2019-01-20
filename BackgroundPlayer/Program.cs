@@ -1,7 +1,4 @@
-﻿using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Model;
-using SimpleInjector;
-using System;
+﻿using SimpleInjector;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,19 +19,13 @@ namespace BackgroundPlayer
 
         public static async Task Main(string[] args)
         {
-            var random = new Random();
-            var skinLoader = Container.GetInstance<SkinLoader>();
-            var skins = skinLoader.LoadSkins();
+            var startUp = Container.GetInstance<StartUp>();
+            var playlistPlayer = Container.GetInstance<PlaylistPlayer>();
 
-            var player = Container.GetInstance<IPlayer>();
-
+            var skins = startUp.LoadSkins();
             var cancellationTokenSource = new CancellationTokenSource();
 
-            while (true)
-            {
-                var skin = skins[random.Next(skins.Count)];
-                await player.PlaySkin(skin, cancellationTokenSource.Token);
-            }
+            await playlistPlayer.Play(skins, cancellationTokenSource.Token);
         }
     }
 }
