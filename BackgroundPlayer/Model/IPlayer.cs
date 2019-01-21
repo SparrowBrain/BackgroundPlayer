@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BackgroundPlayer.Model
 {
-    internal interface IPlayer
+    public interface IPlayer
     {
         Task PlaySkin(Skin skin, CancellationToken cancellationToken);
     }

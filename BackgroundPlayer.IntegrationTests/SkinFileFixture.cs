@@ -15,6 +15,7 @@ namespace BackgroundPlayer.IntegrationTests
         public Fixture Fixture { get; }
         public string SkinsPath => ".\\skins";
         public IEnumerable<string> ImageFiles { get; }
+        public string SkinName => "testSkin01";
 
         public SkinFileFixture()
         {
@@ -22,7 +23,7 @@ namespace BackgroundPlayer.IntegrationTests
 
             SkinConfig = Fixture.Create<SkinConfig>();
             var skinJson = JsonConvert.SerializeObject(SkinConfig);
-            var skinPath = Path.Combine(SkinsPath, "testSkin01");
+            var skinPath = Path.Combine(SkinsPath, SkinName);
             Directory.CreateDirectory(skinPath);
             File.WriteAllText(Path.Combine(skinPath, "skin.json"), skinJson);
             var imagePath = Path.Combine(skinPath, "images");

@@ -25,6 +25,7 @@ namespace BackgroundPlayer.IntegrationTests
 
             Assert.NotEmpty(skins);
             var skin = skins.First();
+            Assert.Equal(_skinFileFixture.SkinName, skin.Name);
             Assert.Equal(TimeSpan.FromMilliseconds(_skinFileFixture.SkinConfig.DurationMillisecods), skin.Duration);
             Assert.Equal(_skinFileFixture.SkinConfig.StartOffset, skin.StartOffset);
             Assert.NotEmpty(skin.Images);

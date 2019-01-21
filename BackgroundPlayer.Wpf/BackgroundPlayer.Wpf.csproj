@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="RootView.xaml" />
+    <None Remove="SkinDetailsView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,12 +25,23 @@
       <DependentUpon>RootView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SkinDetailsView.xaml.cs">
+      <DependentUpon>SkinDetailsView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <Page Update="RootView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Update="SkinDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="skins\" />
   </ItemGroup>
 
 </Project>

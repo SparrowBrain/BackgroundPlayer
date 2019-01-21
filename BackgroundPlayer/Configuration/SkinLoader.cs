@@ -29,12 +29,13 @@ namespace BackgroundPlayer.Configuration
                     throw new Exception($"Skin {skinFile} does not exist!");
                 }
 
+                var name = Path.GetFileName(skinFolder);
                 var skinJson = File.ReadAllText(skinFile);
                 var skinConfig = JsonConvert.DeserializeObject<SkinConfig>(skinJson);
                 var imagesPath = Path.Combine(skinFolder, "images");
                 var images = Directory.EnumerateFiles(imagesPath).Where(x => _skinValidator.ValidImageExtension(x));
 
-                skins.Add(new Skin(images.ToList(), TimeSpan.FromMilliseconds(skinConfig.DurationMillisecods), skinConfig.StartOffset));
+                skins.Add(new Skin(name, images.ToList(), TimeSpan.FromMilliseconds(skinConfig.DurationMillisecods), skinConfig.StartOffset));
             }
 
             return skins;

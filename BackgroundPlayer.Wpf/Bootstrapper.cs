@@ -1,4 +1,7 @@
-﻿using Stylet;
+﻿using BackgroundPlayer.Configuration;
+using BackgroundPlayer.Infrastructure;
+using BackgroundPlayer.Model;
+using Stylet;
 using StyletIoC;
 using System.Reflection;
 using System.Windows;
@@ -17,7 +20,14 @@ namespace BackgroundPlayer.Wpf
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             // Bind your own types. Concrete types are automatically self-bound.
-            builder.Autobind(Assembly.GetAssembly(typeof(Model.Player)));
+            builder.Autobind(Assembly.GetAssembly(typeof(SkinLoader)));
+            builder.Bind<ISkinValidator>().To<SkinValidator>().InSingletonScope();
+            builder.Bind<IPlayer>().To<Player>().InSingletonScope();
+
+            builder.Bind<ISkinCalculator>().To<SkinCalculator>().InSingletonScope();
+            builder.Bind<IWindowsBackground>().To<WindowsBackground>().InSingletonScope();
+            builder.Bind<IDateTimeProvider>().To<DateTimeProvider>().InSingletonScope();
+            builder.Bind<IPacer>().To<Pacer>().InSingletonScope();
         }
 
         protected override void Configure()

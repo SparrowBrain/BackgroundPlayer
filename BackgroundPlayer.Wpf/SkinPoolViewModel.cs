@@ -1,27 +1,16 @@
 ﻿using Stylet;
-using System;
+using System.Linq;
 
 namespace BackgroundPlayer.Wpf
 {
-    public class SkinPoolViewModel : Screen
+    public class SkinPoolViewModel : Conductor<SkinDetailsViewModel>
     {
-        public SkinPoolViewModel()
+        public SkinPoolViewModel(System.Collections.Generic.List<Model.Skin> skins)
         {
-
+            Skins = new BindableCollection<SkinDetailsViewModel>();
+            Skins.AddRange(skins.Select(x => new SkinDetailsViewModel { Name = x.Name, Duration = x.Duration, OffsetMonth = x.StartOffset.Month, OffsetDay = x.StartOffset.Day, OffsetHour = x.StartOffset.Hour }));
         }
 
         public BindableCollection<SkinDetailsViewModel> Skins { get; set; }
-
-    }
-
-    public class SkinDetailsViewModel : Screen
-    {
-        public TimeSpan Duration { get; set; }
-
-        public int? OffsetMonth { get; set; }
-
-        public int? OffsetDay { get; set; }
-
-        public int? OffsetHour { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace BackgroundPlayer.Infrastructure
 {
-    internal class WindowsBackground : IWindowsBackground
+    public class WindowsBackground : IWindowsBackground
     {
         private static readonly int SPI_SETDESKWALLPAPER = 0x14;
         private static readonly int SPIF_UPDATEINIFILE = 0x01;

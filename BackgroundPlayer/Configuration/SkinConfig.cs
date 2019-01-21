@@ -1,4 +1,5 @@
-﻿using BackgroundPlayer.Model;
+﻿using System.Collections.Generic;
+using BackgroundPlayer.Model;
 
 namespace BackgroundPlayer.Configuration
 {
