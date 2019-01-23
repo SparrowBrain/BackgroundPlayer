@@ -1,36 +1,30 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <SpecFlowFeatureFiles Remove="SkinPool.feature" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.6.0" />
     <PackageReference Include="SpecFlow" Version="3.0.161-beta" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.161-beta" />
     <PackageReference Include="SpecFlow.xUnit" Version="3.0.161-beta" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BackgroundPlayer.Wpf\BackgroundPlayer.Wpf.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="SkinPool.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SkinPool.feature</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="SkinPool.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SkinPool.feature.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+  <Target Name="AfterUpdateFeatureFilesInProject">
+    <!-- include any generated SpecFlow files in the compilation of the project if not included yet -->
+    <ItemGroup>
+      <Compile Include="**\*.feature.cs" Exclude="@(Compile)" />
+    </ItemGroup>
+  </Target>
 
 </Project>

@@ -9,10 +9,10 @@ namespace BackgroundPlayer.Configuration
 {
     public class SkinLoader
     {
-        private readonly Configuration _configuration;
+        private readonly Settings _configuration;
         private readonly ISkinValidator _skinValidator;
 
-        public SkinLoader(Configuration configuration, ISkinValidator skinValidator)
+        public SkinLoader(Settings configuration, ISkinValidator skinValidator)
         {
             _configuration = configuration;
             _skinValidator = skinValidator;

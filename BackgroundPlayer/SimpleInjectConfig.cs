@@ -18,7 +18,7 @@ namespace BackgroundPlayer
             container.Register<IPlayer, Player>(Lifestyle.Singleton);
             container.Register<ISkinCalculator, SkinCalculator>(Lifestyle.Singleton);
 
-            container.Register<Configuration.Configuration>();
+            container.Register<Configuration.Settings>();
             container.Register<ISkinValidator, SkinValidator>();
             container.Register<SkinLoader>();
 
