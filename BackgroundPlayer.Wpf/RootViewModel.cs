@@ -22,13 +22,13 @@ namespace BackgroundPlayer.Wpf
             Application.Current.Shutdown();
         }
 
-        protected override async void OnInitialActivate()
+        protected override void OnInitialActivate()
         {
             var skins = startUp.LoadSkins();
             ActiveItem = new SkinPoolViewModel(skins);
 
             var cancellationTokenSource = new CancellationTokenSource();
-            await playlistPlayer.Play(skins, cancellationTokenSource.Token);
+            playlistPlayer.Play(skins, cancellationTokenSource.Token);
 
             
         }

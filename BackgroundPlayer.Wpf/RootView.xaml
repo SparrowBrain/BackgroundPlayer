@@ -12,6 +12,7 @@
             ShowActivated="False"
             ShowInTaskbar="False">
     <Grid>
+        <ContentControl s:View.Model="{Binding ActiveItem}"/>
         <tb:TaskbarIcon>
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>

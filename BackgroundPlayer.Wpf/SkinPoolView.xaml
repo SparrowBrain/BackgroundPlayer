@@ -4,9 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackgroundPlayer.Wpf"
+             xmlns:s="https://github.com/canton7/Stylet"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ItemsControl ItemsSource="{Binding Skins}">
-        
-    </ItemsControl>
+    <StackPanel>
+
+        <ListView Name="SkinPool" ItemsSource="{Binding Skins}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock Text="{Binding SelectedItem.Name, ElementName=SkinPool}"></TextBlock>
+        <TextBlock Text="{Binding SelectedItem.Duration, ElementName=SkinPool}"></TextBlock>
+        <TextBlock Text="{Binding SelectedItem.OffsetMonth, ElementName=SkinPool}"></TextBlock>
+        <TextBlock Text="{Binding SelectedItem.OffsetDay, ElementName=SkinPool}"></TextBlock>
+        <TextBlock Text="{Binding SelectedItem.OffsetHour, ElementName=SkinPool}"></TextBlock>
+    </StackPanel>
 </UserControl>
