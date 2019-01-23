@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace BackgroundPlayer.Wpf
 {
-    public class SkinPoolViewModel : Conductor<SkinDetailsViewModel>
+    public class SkinPoolViewModel : Screen
     {
         public SkinPoolViewModel(System.Collections.Generic.List<Model.Skin> skins)
         {

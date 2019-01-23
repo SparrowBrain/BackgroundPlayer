@@ -7,6 +7,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="{Binding Name}"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Name"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Duration"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Month"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding OffsetMonth}"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Day"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding OffsetDay}"></TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Hour"></TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding OffsetHour}"></TextBlock>
     </Grid>
 </UserControl>
