@@ -1,14 +1,15 @@
-﻿using AutoFixture;
-using AutoFixture.Xunit2;
-using BackgroundPlayer.Model;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoFixture;
+using AutoFixture.Xunit2;
 using BackgroundPlayer.Infrastructure;
+using BackgroundPlayer.Model;
+using BackgroundPlayer.Playback;
+using Moq;
 using Xunit;
 
-namespace BackgroundPlayer.UnitTests
+namespace BackgroundPlayer.UnitTests.Playback
 {
     public class SkinCalculator_Should
     {

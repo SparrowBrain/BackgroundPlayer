@@ -1,6 +1,7 @@
 ﻿using BackgroundPlayer.Configuration;
 using BackgroundPlayer.Infrastructure;
 using BackgroundPlayer.Model;
+using BackgroundPlayer.Playback;
 using SimpleInjector;
 
 namespace BackgroundPlayer

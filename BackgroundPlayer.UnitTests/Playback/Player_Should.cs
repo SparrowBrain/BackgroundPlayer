@@ -1,15 +1,15 @@
-﻿using AutoFixture.Xunit2;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoFixture.Xunit2;
 using BackgroundPlayer.Infrastructure;
 using BackgroundPlayer.Model;
+using BackgroundPlayer.Playback;
+using Moq;
 using Xunit;
 
-namespace BackgroundPlayer.UnitTests
+namespace BackgroundPlayer.UnitTests.Playback
 {
     public class Player_Should
     {

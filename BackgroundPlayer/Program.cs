@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using BackgroundPlayer.Playback;
 
 [assembly: InternalsVisibleTo("BackgroundPlayer.UnitTests")]
 [assembly: InternalsVisibleTo("BackgroundPlayer.IntegrationTests")]

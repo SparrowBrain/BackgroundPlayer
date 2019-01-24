@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BackgroundPlayer.Model;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Playback
 {
     public class PlaylistPlayer
     {
