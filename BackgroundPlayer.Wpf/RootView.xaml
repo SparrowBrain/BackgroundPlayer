@@ -6,7 +6,8 @@
             xmlns:local="clr-namespace:BackgroundPlayer.Wpf"
             xmlns:tb="http://www.hardcodet.net/taskbar"
             xmlns:s="https://github.com/canton7/Stylet"
-            mc:Ignorable="d"
+        xmlns:infrastructure="clr-namespace:BackgroundPlayer.Wpf.Infrastructure"
+        mc:Ignorable="d"
             d:DesignHeight="450" d:DesignWidth="800"
             WindowStyle="None"
             Width="0"
@@ -18,12 +19,15 @@
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
     </Window.Resources>
-    <tb:TaskbarIcon>
+    <tb:TaskbarIcon MenuActivation="LeftOrRightClick"
+                    NoLeftClickDelay="True"
+                    LeftClickCommand="{s:Action ShowSmallTrayMenu}"
+                    TrayRightMouseDown="{s:Action ShowExtendedTrayMenu}">
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Settings" Command="{s:Action ShowSettings}"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Exit" Command="{s:Action Exit}" />
+                <Separator Visibility="{Binding ExtendedMenu, Converter={infrastructure:BoolToCollapsedVisibilityConverter}}"></Separator>
+                <MenuItem Header="Exit" Command="{s:Action Exit}" Visibility="{Binding ExtendedMenu, Converter={infrastructure:BoolToCollapsedVisibilityConverter}}" />
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>

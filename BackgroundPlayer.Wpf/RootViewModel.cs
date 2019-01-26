@@ -10,6 +10,7 @@ namespace BackgroundPlayer.Wpf
         private readonly IWindowManager _windowManager;
         private readonly StartUp _startUp;
         private readonly PlaylistPlayer _playlistPlayer;
+        private bool _extendedMenu;
 
         public RootViewModel(IWindowManager windowManager, StartUp startUp, PlaylistPlayer playlistPlayer)
         {
@@ -17,15 +18,36 @@ namespace BackgroundPlayer.Wpf
             _startUp = startUp;
             _playlistPlayer = playlistPlayer;
         }
-        
+
+        public bool ExtendedMenu
+        {
+            get => _extendedMenu;
+            set
+            {
+                if (value == _extendedMenu) return;
+                _extendedMenu = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public void ShowSettings()
         {
             _windowManager.ShowWindow(ActiveItem);
         }
-        
+
         public void Exit()
         {
             Application.Current.Shutdown();
+        }
+
+        public void ShowSmallTrayMenu()
+        {
+            ExtendedMenu = false;
+        }
+
+        public void ShowExtendedTrayMenu()
+        {
+            ExtendedMenu = true;
         }
 
         protected override void OnInitialActivate()
