@@ -7,15 +7,23 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.UnitTestProvider;
 using TestStack.White;
 using TestStack.White.InputDevices;
+using Xunit;
 
 namespace BackgroundPlayer.AcceptanceTests
 {
     [Binding]
     public class SkinPoolSteps
     {
+        private readonly IUnitTestRuntimeProvider _unitTestRuntimeProvider;
         Application _application;
+
+        public SkinPoolSteps(IUnitTestRuntimeProvider unitTestRuntimeProvider)
+        {
+            _unitTestRuntimeProvider = unitTestRuntimeProvider;
+        }
 
         [Given(@"the app started")]
         public void GivenTheAppStarted()

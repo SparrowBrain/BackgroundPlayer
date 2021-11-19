@@ -37,7 +37,8 @@ namespace BackgroundPlayer.AcceptanceTests
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SkinPool", "\tIn order to know what skins I can use\r\n\tAs an end-user\r\n\tI want to see all loade" +
-                    "d skins", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "d skins", ProgrammingLanguage.CSharp, new string[] {
+                        "ignore"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -77,41 +78,41 @@ namespace BackgroundPlayer.AcceptanceTests
             this.ScenarioTearDown();
         }
         
-        [Xunit.FactAttribute(DisplayName="Skin pool lists all available skins")]
+        [Xunit.FactAttribute(DisplayName="Skin pool lists all available skins", Skip="Ignored")]
         [Xunit.TraitAttribute("FeatureTitle", "SkinPool")]
         [Xunit.TraitAttribute("Description", "Skin pool lists all available skins")]
         public virtual void SkinPoolListsAllAvailableSkins()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Skin pool lists all available skins", null, ((string[])(null)));
-#line 6
+#line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 7
- testRunner.Given("the app started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.When("I press the Settings button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("the app started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
+ testRunner.When("I press the Settings button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 10
  testRunner.Then("I should see all skins listed with names", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [Xunit.FactAttribute(DisplayName="Skin pool shows details for selected skin")]
+        [Xunit.FactAttribute(DisplayName="Skin pool shows details for selected skin", Skip="Ignored")]
         [Xunit.TraitAttribute("FeatureTitle", "SkinPool")]
         [Xunit.TraitAttribute("Description", "Skin pool shows details for selected skin")]
         public virtual void SkinPoolShowsDetailsForSelectedSkin()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Skin pool shows details for selected skin", null, ((string[])(null)));
-#line 11
+#line 12
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 12
- testRunner.Given("the app started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 13
- testRunner.When("I press the Settings button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("the app started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 14
-  testRunner.And("I click on an individual skin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I press the Settings button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
+  testRunner.And("I click on an individual skin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
  testRunner.Then("I should see duration and offset for the skin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

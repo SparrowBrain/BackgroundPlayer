@@ -1,4 +1,5 @@
-﻿Feature: SkinPool
+﻿@ignore
+Feature: SkinPool
 	In order to know what skins I can use
 	As an end-user
 	I want to see all loaded skins

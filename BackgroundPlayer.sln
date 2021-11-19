@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundPlayer", "BackGroundPlayer\BackgroundPlayer.csproj", "{969B11DF-8A88-4CDF-93E3-02A87A5D7E07}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundPlayer.Wpf", "BackgroundPlayer.Wpf\BackgroundPlayer.Wpf.csproj", "{6C234AA3-2FA8-4439-8E09-A668722C2EAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundPlayer.AcceptanceTests", "BackgroundPlayer.AcceptanceTests\BackgroundPlayer.AcceptanceTests.csproj", "{90DF06C0-FEC3-4735-9414-DA90A2893C80}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundPlayer.Wpf.Templates", "BackgroundPlayer.Wpf.Templates\BackgroundPlayer.Wpf.Templates.csproj", "{760AE232-6CAC-478F-AC06-53BA3F6561FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{90DF06C0-FEC3-4735-9414-DA90A2893C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90DF06C0-FEC3-4735-9414-DA90A2893C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90DF06C0-FEC3-4735-9414-DA90A2893C80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{760AE232-6CAC-478F-AC06-53BA3F6561FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{760AE232-6CAC-478F-AC06-53BA3F6561FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{760AE232-6CAC-478F-AC06-53BA3F6561FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{760AE232-6CAC-478F-AC06-53BA3F6561FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
