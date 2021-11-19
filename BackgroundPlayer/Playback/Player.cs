@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using BackgroundPlayer.Infrastructure;
 using BackgroundPlayer.Model;
@@ -23,7 +24,13 @@ namespace BackgroundPlayer.Playback
         public async Task PlaySkin(Skin skin, CancellationToken cancellationToken)
         {
             var start = _dateTimeProvider.Now();
-            foreach (var image in _skinCalculator.NextImage(skin, start))
+            await PlaySkin(skin, start, cancellationToken);
+        }
+
+        public async Task PlaySkin(Skin skin, DateTime playbackStarted, CancellationToken cancellationToken)
+        {
+            
+            foreach (var image in _skinCalculator.NextImage(skin, playbackStarted))
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
@@ -34,7 +41,7 @@ namespace BackgroundPlayer.Playback
 
                 _windowsBackground.Refresh(image);
 
-                await _pacer.Delay(_skinCalculator.NextDelay(skin, start));
+                await _pacer.Delay(_skinCalculator.NextDelay(skin, playbackStarted));
             }
         }
     }

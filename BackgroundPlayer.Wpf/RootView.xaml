@@ -22,7 +22,8 @@
     <tb:TaskbarIcon MenuActivation="LeftOrRightClick"
                     NoLeftClickDelay="True"
                     LeftClickCommand="{s:Action ShowSmallTrayMenu}"
-                    TrayRightMouseDown="{s:Action ShowExtendedTrayMenu}">
+                    TrayRightMouseDown="{s:Action ShowExtendedTrayMenu}"
+                    ToolTipText="BackgroundPlayer">
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Settings" Command="{s:Action ShowSettings}"></MenuItem>

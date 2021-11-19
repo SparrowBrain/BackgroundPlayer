@@ -1,5 +1,6 @@
 ﻿using BackgroundPlayer.Playback;
 using Stylet;
+using System;
 using System.Threading;
 using System.Windows;
 
@@ -52,8 +53,11 @@ namespace BackgroundPlayer.Wpf
 
         protected override void OnInitialActivate()
         {
+            //var args = Environment.GetCommandLineArgs();
+
             var skins = _startUp.LoadSkins();
             ActiveItem = new SkinPoolViewModel(skins);
+            //ShowSettings();
 
             var cancellationTokenSource = new CancellationTokenSource();
             _playlistPlayer.Play(skins, cancellationTokenSource.Token);

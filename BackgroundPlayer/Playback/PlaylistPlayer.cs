@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BackgroundPlayer.Configuration;
 using BackgroundPlayer.Model;
 
 namespace BackgroundPlayer.Playback
@@ -9,14 +11,24 @@ namespace BackgroundPlayer.Playback
     public class PlaylistPlayer
     {
         private readonly IPlayer _player;
+        private readonly PlaybackState _playbackState;
 
-        public PlaylistPlayer(IPlayer player)
+        public PlaylistPlayer(IPlayer player, PlaybackState playbackState)
         {
             _player = player;
+            _playbackState = playbackState;
         }
 
         public async Task Play(List<Skin> skins, CancellationToken cancellationToken)
         {
+            if(_playbackState!=null)
+            {
+                var skin = skins.FirstOrDefault(x => x.Name == _playbackState.SkinName);
+                if (skin != null)
+                {
+                    await _player.PlaySkin(skin, _playbackState.PlaybackStarted, cancellationToken);
+                }
+            }
             var random = new Random();
             while (true)
             {
