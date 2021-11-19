@@ -32,16 +32,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="skins\test\images\test_01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="skins\test\images\test_02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="skins\test\skin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="RootView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="SkinDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="skins\" />
   </ItemGroup>
 
 </Project>
