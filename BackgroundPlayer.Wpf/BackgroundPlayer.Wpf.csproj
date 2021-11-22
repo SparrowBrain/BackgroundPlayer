@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
-    <PackageReference Include="Stylet" Version="1.1.22" />
   </ItemGroup>
 
   <ItemGroup>

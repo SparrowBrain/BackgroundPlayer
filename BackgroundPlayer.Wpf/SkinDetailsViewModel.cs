@@ -1,4 +1,4 @@
-﻿using Stylet;
+﻿using Caliburn.Micro;
 using System;
 
 namespace BackgroundPlayer.Wpf

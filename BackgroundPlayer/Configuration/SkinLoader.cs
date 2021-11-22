@@ -9,19 +9,18 @@ namespace BackgroundPlayer.Configuration
 {
     public class SkinLoader
     {
-        private readonly Settings _configuration;
+        private const string SkinsPath = ".\\skins";
         private readonly ISkinValidator _skinValidator;
 
-        public SkinLoader(Settings configuration, ISkinValidator skinValidator)
+        public SkinLoader(ISkinValidator skinValidator)
         {
-            _configuration = configuration;
             _skinValidator = skinValidator;
         }
 
         public List<Skin> LoadSkins()
         {
             var skins = new List<Skin>();
-            foreach (var skinFolder in Directory.EnumerateDirectories(_configuration.SkinsPath))
+            foreach (var skinFolder in Directory.EnumerateDirectories(SkinsPath))
             {
                 var skinFile = Path.Combine(skinFolder, "skin.json");
                 if (!File.Exists(skinFile))

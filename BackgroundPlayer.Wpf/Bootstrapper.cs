@@ -1,57 +1,76 @@
-﻿using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Infrastructure;
-using BackgroundPlayer.Model;
-using BackgroundPlayer.Playback;
-using Stylet;
-using StyletIoC;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
+using BackgroundPlayer.Configuration;
+using BackgroundPlayer.Infrastructure;
+using BackgroundPlayer.Playback;
+using Caliburn.Micro;
 
-namespace BackgroundPlayer.Wpf
+namespace BackgroundPlayer.Wpf;
+
+public class Bootstrapper : BootstrapperBase
 {
-    internal class Bootstrapper : Bootstrapper<RootViewModel>
+    private SimpleContainer _container;
+
+    public Bootstrapper()
     {
-        protected override void OnStart()
-        {
-            // This is called just after the application is started, but before the IoC container is set up.
-            // Set up things like logging, etc
-        }
+        Initialize();
+    }
 
-        protected override void ConfigureIoC(IStyletIoCBuilder builder)
-        {
-            // Bind your own types. Concrete types are automatically self-bound.
-            builder.Autobind(Assembly.GetAssembly(typeof(SkinLoader)));
-            builder.Bind<ISkinValidator>().To<SkinValidator>().InSingletonScope();
-            builder.Bind<IPlayer>().To<Player>().InSingletonScope();
+    protected override void Configure()
+    {
+        _container = new SimpleContainer();
 
-            builder.Bind<ISkinCalculator>().To<SkinCalculator>().InSingletonScope();
-            builder.Bind<IWindowsBackground>().To<WindowsBackground>().InSingletonScope();
-            builder.Bind<IDateTimeProvider>().To<DateTimeProvider>().InSingletonScope();
-            builder.Bind<IPacer>().To<Pacer>().InSingletonScope();
-        }
+        _container.Singleton<IWindowManager, WindowManager>();
+        _container.Singleton<IEventAggregator, EventAggregator>();
 
-        protected override void Configure()
-        {
-            // This is called after Stylet has created the IoC container, so this.Container exists, but before the
-            // Root ViewModel is launched.
-            // Configure your services, etc, in here
-        }
+        _container.PerRequest<RootViewModel>();
+        _container.PerRequest<SkinPoolViewModel>();
 
-        protected override void OnLaunch()
-        {
-            // This is called just after the root ViewModel has been launched
-            // Something like a version check that displays a dialog might be launched from here
-        }
+        _container.Singleton<StartUp>();
+        _container.Singleton<SkinLoader>();
+        _container.Singleton<PlaylistPlayer>();
+        _container.Singleton<ISkinValidator, SkinValidator>();
+        _container.Singleton<IPlayer, Player>();
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            // Called on Application.Exit
-        }
+        _container.Singleton<ISkinCalculator, SkinCalculator>();
+        _container.Singleton<IWindowsBackground, WindowsBackground>();
+        _container.Singleton<IDateTimeProvider, DateTimeProvider>();
+        _container.Singleton<IPacer,Pacer>();
+    }
 
-        protected override void OnUnhandledException(DispatcherUnhandledExceptionEventArgs e)
-        {
-            // Called on Application.DispatcherUnhandledException
-        }
+    protected override object GetInstance(Type service, string key)
+    {
+        return _container.GetInstance(service, key);
+    }
+
+    protected override IEnumerable<object> GetAllInstances(Type service)
+    {
+        return _container.GetAllInstances(service);
+    }
+
+    protected override void BuildUp(object instance)
+    {
+        _container.BuildUp(instance);
+    }
+
+    protected override void OnStartup(object sender, StartupEventArgs e)
+    {
+        DisplayRootViewFor<RootViewModel>();
+
+        var startUp = _container.GetInstance<StartUp>();
+        var playlistPlayer = _container.GetInstance<PlaylistPlayer>();
+        var cancellationTokenSource = new CancellationTokenSource();
+
+        var skins = startUp.LoadSkins();
+
+        playlistPlayer.Play(skins, cancellationTokenSource.Token);
+    }
+
+    protected override IEnumerable<Assembly> SelectAssemblies()
+    {
+        return new[] { Assembly.GetExecutingAssembly() };
     }
 }

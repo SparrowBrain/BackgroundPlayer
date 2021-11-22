@@ -1,23 +1,18 @@
-﻿using BackgroundPlayer.Playback;
-using Stylet;
-using System;
-using System.Threading;
+﻿using System.Threading.Tasks;
 using System.Windows;
+using Caliburn.Micro;
 
 namespace BackgroundPlayer.Wpf
 {
     public class RootViewModel : Conductor<SkinPoolViewModel>
     {
         private readonly IWindowManager _windowManager;
-        private readonly StartUp _startUp;
-        private readonly PlaylistPlayer _playlistPlayer;
         private bool _extendedMenu;
 
-        public RootViewModel(IWindowManager windowManager, StartUp startUp, PlaylistPlayer playlistPlayer)
+        public RootViewModel(IWindowManager windowManager, SkinPoolViewModel skinPoolViewModel)
         {
             _windowManager = windowManager;
-            _startUp = startUp;
-            _playlistPlayer = playlistPlayer;
+            ActiveItem = skinPoolViewModel;
         }
 
         public bool ExtendedMenu
@@ -31,9 +26,9 @@ namespace BackgroundPlayer.Wpf
             }
         }
 
-        public void ShowSettings()
+        public async Task ShowSettings()
         {
-            _windowManager.ShowWindow(ActiveItem);
+            await _windowManager.ShowWindowAsync(ActiveItem);
         }
 
         public void Exit()
@@ -51,16 +46,5 @@ namespace BackgroundPlayer.Wpf
             ExtendedMenu = true;
         }
 
-        protected override void OnInitialActivate()
-        {
-            //var args = Environment.GetCommandLineArgs();
-
-            var skins = _startUp.LoadSkins();
-            ActiveItem = new SkinPoolViewModel(skins);
-            //ShowSettings();
-
-            var cancellationTokenSource = new CancellationTokenSource();
-            _playlistPlayer.Play(skins, cancellationTokenSource.Token);
-        }
     }
 }

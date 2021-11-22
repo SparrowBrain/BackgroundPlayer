@@ -22,7 +22,7 @@ namespace BackgroundPlayer.IntegrationTests
             Fixture = new Fixture();
 
             SkinConfig = Fixture.Create<SkinConfig>();
-            SkinsPath = Fixture.Create<Settings>().SkinsPath;
+            SkinsPath = ".\\skins";
             var skinJson = JsonConvert.SerializeObject(SkinConfig);
             var skinPath = Path.Combine(SkinsPath, SkinName);
             Directory.CreateDirectory(skinPath);

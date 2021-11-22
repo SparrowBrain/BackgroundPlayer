@@ -5,8 +5,8 @@
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:local="clr-namespace:BackgroundPlayer.Wpf"
             xmlns:tb="http://www.hardcodet.net/taskbar"
-            xmlns:s="https://github.com/canton7/Stylet"
         xmlns:infrastructure="clr-namespace:BackgroundPlayer.Wpf.Infrastructure"
+        xmlns:cm="http://caliburnmicro.com"
         mc:Ignorable="d"
             d:DesignHeight="450" d:DesignWidth="800"
             WindowStyle="None"
@@ -21,14 +21,12 @@
     </Window.Resources>
     <tb:TaskbarIcon MenuActivation="LeftOrRightClick"
                     NoLeftClickDelay="True"
-                    LeftClickCommand="{s:Action ShowSmallTrayMenu}"
-                    TrayRightMouseDown="{s:Action ShowExtendedTrayMenu}"
-                    ToolTipText="BackgroundPlayer">
+                    cm:Message.Attach="[Event TrayLeftMouseDown] = [Action ShowSmallTrayMenu()]">
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Settings" Command="{s:Action ShowSettings}"></MenuItem>
-                <Separator Visibility="{Binding ExtendedMenu, Converter={infrastructure:BoolToCollapsedVisibilityConverter}}"></Separator>
-                <MenuItem Header="Exit" Command="{s:Action Exit}" Visibility="{Binding ExtendedMenu, Converter={infrastructure:BoolToCollapsedVisibilityConverter}}" />
+                <!--<MenuItem Header="Settings" Command="{cm:Action ShowSettings}"></MenuItem>-->
+                <!--<Separator Visibility="{Binding ExtendedMenu, Converter={infrastructure:BoolToCollapsedVisibilityConverter}}"></Separator>-->
+                <!--<MenuItem Header="Exit" Command="{cm:Action Exit}" Visibility="{Binding ExtendedMenu, Converter={infrastructure:BoolToCollapsedVisibilityConverter}}" />-->
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>
