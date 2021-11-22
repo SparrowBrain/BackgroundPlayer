@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <TextBlock>Available skins:</TextBlock>
         <ListView Name="SkinPool"
-                  ItemsSource="{Binding Skins}"
+                  ItemsSource="{Binding Items}"
                   Grid.Column="0"
                   Grid.Row="1">
             <ListView.ItemTemplate>
