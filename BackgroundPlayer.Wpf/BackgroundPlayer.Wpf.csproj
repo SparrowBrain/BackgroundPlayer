@@ -4,12 +4,19 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icons\BackgroundPlayer.ico</ApplicationIcon>
+    <Product>$(AssemblyName)</Product>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Icons\BackgroundPlayer.ico" />
     <None Remove="RootView.xaml" />
     <None Remove="SkinDetailsView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\BackgroundPlayer.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +47,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="skins\test\skin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="startup-add.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="startup-remove.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
