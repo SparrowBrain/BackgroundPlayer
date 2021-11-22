@@ -22,9 +22,11 @@
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
     </Window.Resources>
-    <tb:TaskbarIcon MenuActivation="LeftOrRightClick"
-                    NoLeftClickDelay="True"
-                    ToolTipText="BackgroundPlayer">
+    <tb:TaskbarIcon 
+        IconSource="{Binding Path=Icon}"
+        MenuActivation="LeftOrRightClick"
+        NoLeftClickDelay="True"
+        ToolTipText="BackgroundPlayer">
         <b:Interaction.Triggers>
             <b:EventTrigger EventName="TrayLeftMouseDown">
                 <cm:ActionMessage MethodName="ShowSmallTrayMenu"/>

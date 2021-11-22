@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Caliburn.Micro;
+using System.Threading.Tasks;
 using System.Windows;
-using Caliburn.Micro;
 
 namespace BackgroundPlayer.Wpf
 {
@@ -26,6 +26,8 @@ namespace BackgroundPlayer.Wpf
             }
         }
 
+        public string Icon => "/Icons/BackgroundPlayer.ico";
+
         public async Task ShowSettings()
         {
             await _windowManager.ShowWindowAsync(ActiveItem);
@@ -45,6 +47,5 @@ namespace BackgroundPlayer.Wpf
         {
             ExtendedMenu = true;
         }
-
     }
 }

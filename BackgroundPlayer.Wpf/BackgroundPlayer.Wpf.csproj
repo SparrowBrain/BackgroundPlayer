@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\BackgroundPlayer.ico" />
     <None Remove="RootView.xaml" />
     <None Remove="SkinDetailsView.xaml" />
   </ItemGroup>
@@ -50,6 +51,10 @@
     <Page Update="SkinDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\BackgroundPlayer.ico" />
   </ItemGroup>
 
 </Project>
