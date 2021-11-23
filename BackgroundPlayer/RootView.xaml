@@ -25,7 +25,7 @@
         IconSource="{Binding Path=Icon}"
         MenuActivation="LeftOrRightClick"
         NoLeftClickDelay="True"
-        ToolTipText="BackgroundPlayer">
+        ToolTipText="Background Player">
         <b:Interaction.Triggers>
             <b:EventTrigger EventName="TrayLeftMouseDown">
                 <cm:ActionMessage MethodName="ShowSmallTrayMenu"/>

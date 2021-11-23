@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Icons\BackgroundPlayer.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
   </ItemGroup>
@@ -65,7 +61,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icons\BackgroundPlayer.ico" />
+    <Resource Include="Icons\BackgroundPlayer.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
