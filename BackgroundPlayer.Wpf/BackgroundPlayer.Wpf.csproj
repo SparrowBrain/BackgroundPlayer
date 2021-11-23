@@ -5,8 +5,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Icons\BackgroundPlayer.ico</ApplicationIcon>
-    <Product>$(AssemblyName)</Product>
-    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

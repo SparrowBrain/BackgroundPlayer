@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BackgroundPlayer.Configuration;
+using BackgroundPlayer.Infrastructure;
+using BackgroundPlayer.Playback;
+using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
-using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Infrastructure;
-using BackgroundPlayer.Playback;
-using Caliburn.Micro;
 
 namespace BackgroundPlayer.Wpf;
 
@@ -38,7 +38,7 @@ public class Bootstrapper : BootstrapperBase
         _container.Singleton<ISkinCalculator, SkinCalculator>();
         _container.Singleton<IWindowsBackground, WindowsBackground>();
         _container.Singleton<IDateTimeProvider, DateTimeProvider>();
-        _container.Singleton<IPacer,Pacer>();
+        _container.Singleton<IPacer, Pacer>();
     }
 
     protected override object GetInstance(Type service, string key)
@@ -66,7 +66,7 @@ public class Bootstrapper : BootstrapperBase
 
         var skins = startUp.LoadSkins();
 
-        playlistPlayer.Play(skins, cancellationTokenSource.Token);
+        _ = playlistPlayer.Play(skins, cancellationTokenSource.Token);
     }
 
     protected override IEnumerable<Assembly> SelectAssemblies()
