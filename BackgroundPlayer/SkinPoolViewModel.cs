@@ -1,8 +1,8 @@
-﻿using Caliburn.Micro;
-using System.Linq;
+﻿using System.Linq;
 using BackgroundPlayer.Core.Configuration;
+using Caliburn.Micro;
 
-namespace BackgroundPlayer.Wpf
+namespace BackgroundPlayer
 {
     public class SkinPoolViewModel : Conductor<SkinDetailsViewModel>.Collection.OneActive
     {

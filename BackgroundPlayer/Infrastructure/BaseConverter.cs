@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Markup;
 
-namespace BackgroundPlayer.Wpf.Infrastructure
+namespace BackgroundPlayer.Infrastructure
 {
     public abstract class BaseConverter : MarkupExtension
     {

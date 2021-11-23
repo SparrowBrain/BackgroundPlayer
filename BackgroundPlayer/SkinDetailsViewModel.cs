@@ -1,7 +1,7 @@
-﻿using Caliburn.Micro;
-using System;
+﻿using System;
+using Caliburn.Micro;
 
-namespace BackgroundPlayer.Wpf
+namespace BackgroundPlayer
 {
     public class SkinDetailsViewModel : Screen
     {

@@ -1,6 +1,4 @@
-﻿
-using Caliburn.Micro;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
@@ -9,8 +7,9 @@ using BackgroundPlayer.Core;
 using BackgroundPlayer.Core.Configuration;
 using BackgroundPlayer.Core.Infrastructure;
 using BackgroundPlayer.Core.Playback;
+using Caliburn.Micro;
 
-namespace BackgroundPlayer.Wpf;
+namespace BackgroundPlayer;
 
 public class Bootstrapper : BootstrapperBase
 {

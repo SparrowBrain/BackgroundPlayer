@@ -1,8 +1,8 @@
-﻿using Caliburn.Micro;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
+using Caliburn.Micro;
 
-namespace BackgroundPlayer.Wpf
+namespace BackgroundPlayer
 {
     public class RootViewModel : Conductor<SkinPoolViewModel>
     {

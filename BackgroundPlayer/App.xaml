@@ -1,12 +1,12 @@
-﻿<Application x:Class="BackgroundPlayer.Wpf.App"
+﻿<Application x:Class="BackgroundPlayer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BackgroundPlayer.Wpf">
+             xmlns:backgroundPlayer="clr-namespace:BackgroundPlayer">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-                    <local:Bootstrapper x:Key="Bootstrapper" />
+                    <backgroundPlayer:Bootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

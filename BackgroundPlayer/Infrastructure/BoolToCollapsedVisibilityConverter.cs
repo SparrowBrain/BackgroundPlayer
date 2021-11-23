@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 
-namespace BackgroundPlayer.Wpf.Infrastructure
+namespace BackgroundPlayer.Infrastructure
 {
     public class BoolToCollapsedVisibilityConverter : BaseConverter, IValueConverter
     {
