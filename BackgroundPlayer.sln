@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundPlayer", "BackGroundPlayer\BackgroundPlayer.csproj", "{969B11DF-8A88-4CDF-93E3-02A87A5D7E07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundPlayer", "BackgroundPlayer\BackgroundPlayer.csproj", "{969B11DF-8A88-4CDF-93E3-02A87A5D7E07}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundPlayer.UnitTests", "BackgroundPlayer.UnitTests\BackgroundPlayer.UnitTests.csproj", "{CFB85925-2DE6-4A82-B4AC-ACBD12A1E102}"
 EndProject
