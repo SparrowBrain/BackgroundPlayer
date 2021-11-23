@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BackgroundPlayer.Configuration
+namespace BackgroundPlayer.Core.Configuration
 {
     public class PlaybackState
     {

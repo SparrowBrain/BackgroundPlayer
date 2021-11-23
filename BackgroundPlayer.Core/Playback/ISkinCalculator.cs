@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using BackgroundPlayer.Model;
+using BackgroundPlayer.Core.Model;
 
-namespace BackgroundPlayer.Playback
+namespace BackgroundPlayer.Core.Playback
 {
     public interface ISkinCalculator
     {

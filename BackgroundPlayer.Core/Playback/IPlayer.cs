@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BackgroundPlayer.Model;
+using BackgroundPlayer.Core.Model;
 
-namespace BackgroundPlayer.Playback
+namespace BackgroundPlayer.Core.Playback
 {
     public interface IPlayer
     {

@@ -1,4 +1,4 @@
-﻿namespace BackgroundPlayer.Model
+﻿namespace BackgroundPlayer.Core.Model
 {
     public class StartOffset
     {

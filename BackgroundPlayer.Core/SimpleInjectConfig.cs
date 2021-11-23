@@ -1,10 +1,9 @@
-﻿using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Infrastructure;
-using BackgroundPlayer.Model;
-using BackgroundPlayer.Playback;
+﻿using BackgroundPlayer.Core.Configuration;
+using BackgroundPlayer.Core.Infrastructure;
+using BackgroundPlayer.Core.Playback;
 using SimpleInjector;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Core
 {
     internal class SimpleInjectConfig
     {

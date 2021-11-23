@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BackgroundPlayer.Model
+namespace BackgroundPlayer.Core.Model
 {
     public class Skin
     {

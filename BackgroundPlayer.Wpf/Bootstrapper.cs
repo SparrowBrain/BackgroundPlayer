@@ -1,12 +1,14 @@
-﻿using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Infrastructure;
-using BackgroundPlayer.Playback;
+﻿
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using BackgroundPlayer.Core;
+using BackgroundPlayer.Core.Configuration;
+using BackgroundPlayer.Core.Infrastructure;
+using BackgroundPlayer.Core.Playback;
 
 namespace BackgroundPlayer.Wpf;
 

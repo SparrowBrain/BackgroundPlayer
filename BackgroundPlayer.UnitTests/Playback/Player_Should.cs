@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
-using BackgroundPlayer.Infrastructure;
-using BackgroundPlayer.Model;
-using BackgroundPlayer.Playback;
+using BackgroundPlayer.Core.Infrastructure;
+using BackgroundPlayer.Core.Model;
+using BackgroundPlayer.Core.Playback;
 using Moq;
 using Xunit;
 

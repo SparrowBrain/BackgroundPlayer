@@ -1,13 +1,13 @@
-﻿using SimpleInjector;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using BackgroundPlayer.Playback;
+using BackgroundPlayer.Core.Playback;
+using SimpleInjector;
 
 [assembly: InternalsVisibleTo("BackgroundPlayer.UnitTests")]
 [assembly: InternalsVisibleTo("BackgroundPlayer.IntegrationTests")]
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Core
 {
     internal class Program
     {

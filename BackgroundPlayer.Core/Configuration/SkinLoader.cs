@@ -1,11 +1,11 @@
-﻿using BackgroundPlayer.Model;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BackgroundPlayer.Core.Model;
+using Newtonsoft.Json;
 
-namespace BackgroundPlayer.Configuration
+namespace BackgroundPlayer.Core.Configuration
 {
     public class SkinLoader
     {

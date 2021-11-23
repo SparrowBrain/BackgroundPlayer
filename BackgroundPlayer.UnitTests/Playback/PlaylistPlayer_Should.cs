@@ -1,13 +1,13 @@
 ﻿using System;
 using AutoFixture.Xunit2;
-using BackgroundPlayer.Model;
-using BackgroundPlayer.Playback;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
+using BackgroundPlayer.Core.Model;
+using BackgroundPlayer.Core.Playback;
 using Xunit;
 
 namespace BackgroundPlayer.UnitTests.Playback

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using BackgroundPlayer.Model;
+﻿using BackgroundPlayer.Core.Model;
 
-namespace BackgroundPlayer.Configuration
+namespace BackgroundPlayer.Core.Configuration
 {
     public class SkinConfig
     {

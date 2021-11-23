@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AutoFixture.Xunit2;
-using BackgroundPlayer.Configuration;
+using BackgroundPlayer.Core.Configuration;
 using Xunit;
 
 namespace BackgroundPlayer.UnitTests.Configuration

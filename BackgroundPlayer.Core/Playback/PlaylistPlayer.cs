@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Model;
+using BackgroundPlayer.Core.Configuration;
+using BackgroundPlayer.Core.Model;
 
-namespace BackgroundPlayer.Playback
+namespace BackgroundPlayer.Core.Playback
 {
     public class PlaylistPlayer
     {

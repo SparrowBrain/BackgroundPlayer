@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
-using BackgroundPlayer.Configuration;
 using System;
 using System.Linq;
+using BackgroundPlayer.Core.Configuration;
 using Xunit;
 
 namespace BackgroundPlayer.IntegrationTests

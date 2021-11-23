@@ -1,6 +1,6 @@
-﻿using BackgroundPlayer.Configuration;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using System.Linq;
+using BackgroundPlayer.Core.Configuration;
 
 namespace BackgroundPlayer.Wpf
 {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using BackgroundPlayer.Configuration;
-using BackgroundPlayer.Model;
+using BackgroundPlayer.Core.Configuration;
+using BackgroundPlayer.Core.Model;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Core
 {
     public class StartUp
     {

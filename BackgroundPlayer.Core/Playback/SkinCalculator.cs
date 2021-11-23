@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using BackgroundPlayer.Infrastructure;
-using BackgroundPlayer.Model;
+using BackgroundPlayer.Core.Infrastructure;
+using BackgroundPlayer.Core.Model;
 
-namespace BackgroundPlayer.Playback
+namespace BackgroundPlayer.Core.Playback
 {
     public class SkinCalculator : ISkinCalculator
     {

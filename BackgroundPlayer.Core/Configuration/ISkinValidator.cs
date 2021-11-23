@@ -1,4 +1,4 @@
-﻿namespace BackgroundPlayer.Configuration
+﻿namespace BackgroundPlayer.Core.Configuration
 {
     public interface ISkinValidator
     {

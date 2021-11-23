@@ -1,11 +1,11 @@
 ﻿using AutoFixture;
 using AutoFixture.Kernel;
-using BackgroundPlayer.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BackgroundPlayer.Core.Configuration;
 
 namespace BackgroundPlayer.IntegrationTests
 {

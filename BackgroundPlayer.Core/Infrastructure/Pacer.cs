@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BackgroundPlayer.Infrastructure;
 
-namespace BackgroundPlayer
+namespace BackgroundPlayer.Core.Infrastructure
 {
     public class Pacer : IPacer
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace BackgroundPlayer.Infrastructure
+namespace BackgroundPlayer.Core.Infrastructure
 {
     public interface IPacer
     {

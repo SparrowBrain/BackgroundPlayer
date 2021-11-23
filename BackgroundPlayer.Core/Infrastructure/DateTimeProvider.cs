@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BackgroundPlayer.Infrastructure
+namespace BackgroundPlayer.Core.Infrastructure
 {
     public class DateTimeProvider :IDateTimeProvider
     {

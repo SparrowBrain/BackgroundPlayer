@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BackGroundPlayer\BackgroundPlayer.csproj" />
+    <ProjectReference Include="..\BackgroundPlayer.Core\BackgroundPlayer.Core.csproj" />
   </ItemGroup>
 
 </Project>

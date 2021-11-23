@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 
-namespace BackgroundPlayer.Configuration
+namespace BackgroundPlayer.Core.Configuration
 {
     public class SkinValidator : ISkinValidator
     {
