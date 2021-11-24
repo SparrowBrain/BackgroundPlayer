@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -22,6 +23,8 @@ public class Bootstrapper : BootstrapperBase
 
     protected override void Configure()
     {
+        Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
         _container = new SimpleContainer();
 
         _container.Singleton<IWindowManager, WindowManager>();

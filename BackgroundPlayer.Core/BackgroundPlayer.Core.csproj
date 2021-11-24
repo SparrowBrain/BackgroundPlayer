@@ -10,9 +10,5 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="SimpleInjector" Version="4.4.3" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="skins\" />
-  </ItemGroup>
 
 </Project>
