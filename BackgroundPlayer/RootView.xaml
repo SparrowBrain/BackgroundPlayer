@@ -1,11 +1,11 @@
 ﻿<Window x:Class="BackgroundPlayer.RootView"
-            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:tb="http://www.hardcodet.net/taskbar"
-            xmlns:cm="http://caliburnmicro.com"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:cm="http://caliburnmicro.com"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:infrastructure="clr-namespace:BackgroundPlayer.Infrastructure"
         mc:Ignorable="d"
             d:DesignHeight="450" d:DesignWidth="800"
@@ -15,23 +15,24 @@
             ShowActivated="False"
             ShowInTaskbar="False"
             Background = "Transparent"
-            AllowsTransparency = "True">
+            AllowsTransparency = "True"
+            Visibility="Hidden">
     <Window.Resources>
         <Style x:Key="ListStyle" TargetType="ListView">
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
     </Window.Resources>
-    <tb:TaskbarIcon 
+    <tb:TaskbarIcon
         IconSource="{Binding Path=Icon}"
         MenuActivation="LeftOrRightClick"
         NoLeftClickDelay="True"
         ToolTipText="Background Player">
         <b:Interaction.Triggers>
             <b:EventTrigger EventName="TrayLeftMouseDown">
-                <cm:ActionMessage MethodName="ShowSmallTrayMenu"/>
+                <cm:ActionMessage MethodName="ShowSmallTrayMenu" />
             </b:EventTrigger>
             <b:EventTrigger EventName="TrayRightMouseDown">
-                <cm:ActionMessage MethodName="ShowExtendedTrayMenu"/>
+                <cm:ActionMessage MethodName="ShowExtendedTrayMenu" />
             </b:EventTrigger>
         </b:Interaction.Triggers>
         <tb:TaskbarIcon.ContextMenu>

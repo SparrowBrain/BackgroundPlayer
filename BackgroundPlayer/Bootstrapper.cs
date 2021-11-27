@@ -67,7 +67,7 @@ public class Bootstrapper : BootstrapperBase
         var startUp = _container.GetInstance<StartUp>();
         var playlistPlayer = _container.GetInstance<PlaylistPlayer>();
         var cancellationTokenSource = new CancellationTokenSource();
-
+        
         var skins = startUp.LoadSkins();
 
         _ = playlistPlayer.Play(skins, cancellationTokenSource.Token);
