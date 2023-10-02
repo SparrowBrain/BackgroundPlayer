@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.Xunit2;
 using BackgroundPlayer.Core.Infrastructure;
 using BackgroundPlayer.Core.Model;
 using BackgroundPlayer.Core.Playback;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace BackgroundPlayer.UnitTests.Playback
@@ -141,6 +141,49 @@ namespace BackgroundPlayer.UnitTests.Playback
         }
 
         [Theory]
+        [InlineAutoMoqData(2, 1, 0, null, null, "2023-09-12T00:00:00", "2023-09-12T23:45:00", 15)]
+        [InlineAutoMoqData(2, 1, 0, null, null, "2023-09-12T00:00:00", "2023-09-12T12:00:00", 30)]
+        [InlineAutoMoqData(2, 12, 6, null, null, "2023-09-12T09:00:00", "2023-09-12T20:00:00", 30)]
+        [InlineAutoMoqData(2, 12, 0, 1, null, "2023-09-15T09:00:00", "2023-09-30T20:00:00", 30)]
+        [InlineAutoMoqData(2, 12, 0, 1, null, "2023-09-15T09:00:00", "2023-09-30T23:45:00", 15)]
+        [InlineAutoMoqData(2, 12, null, 1, null, "2023-09-15T09:00:00", "2023-09-30T20:00:00", 30)]
+        [InlineAutoMoqData(2, 12, 0, 1, 1, "2023-09-15T09:00:00", "2023-12-31T20:00:00", 30)]
+        [InlineAutoMoqData(2, 12, 0, null, 1, "2023-09-15T09:00:00", "2023-12-31T20:00:00", 30)]
+        public void CalculateNextDelayTillNextStartWhenSkinHasFinishedPlayingCappedAt30Minutes(
+            int imageCount,
+            int durationHours,
+            int? offsetHour,
+            int? offsetDay,
+            int? offsetMonth,
+            DateTime start,
+            DateTime now,
+            int expectedDelayMinutes,
+            [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock,
+            SkinCalculator skinCalculator)
+        {
+            var fixture = new Fixture();
+            dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
+            fixture.Register(() => TimeSpan.FromHours(durationHours));
+            fixture.Register((Func<IList<string>>)(() =>
+            {
+                var images = new List<string>();
+                for (var i = 0; i < imageCount; i++)
+                {
+                    images.Add(fixture.Create<string>());
+                }
+                return images;
+            }));
+            var skin = fixture.Create<Skin>();
+            skin.StartOffset.Month = offsetMonth;
+            skin.StartOffset.Day = offsetDay;
+            skin.StartOffset.Hour = offsetHour;
+
+            var delay = skinCalculator.NextDelay(skin, start);
+
+            Assert.Equal(TimeSpan.FromMinutes(expectedDelayMinutes), delay);
+        }
+
+        [Theory]
         [InlineAutoMoqData(30, 30, 1, 1, "2019-01-01T00:00:00", "2019-01-12T00:00:00", 11)]
         [InlineAutoMoqData(3, 30, 1, 1, "2019-01-01T00:00:00", "2019-01-12T00:00:00", 1)]
         [InlineAutoMoqData(12, 365, 1, 1, "2019-02-01T00:00:00", "2019-06-12T00:00:00", 5)]
@@ -231,14 +274,14 @@ namespace BackgroundPlayer.UnitTests.Playback
 
         [Theory]
         [InlineAutoMoqData(24, 24, null, null, 2, "2019-04-15T00:00:00", 22)]
-        [InlineAutoMoqData(30, 30*24, null, 17, null, "2019-04-15T00:00:00", 29)]
-        [InlineAutoMoqData(12, 365*24, 5, null, null, "2019-04-15T00:00:00", 11)]
+        [InlineAutoMoqData(30, 30 * 24, null, 17, null, "2019-04-15T00:00:00", 29)]
+        [InlineAutoMoqData(12, 365 * 24, 5, null, null, "2019-04-15T00:00:00", 11)]
         public void PushStartBackWhenOffsetsPutStartInTheFuture(int imageCount, int durationHours, int? offsetMonth, int? offsetDay, int? offsetHour, DateTime now, int expectedIndex, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
         {
             var fixture = new Fixture();
             dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
             fixture.Register(() => TimeSpan.FromHours(durationHours));
-            fixture.Register(() => (IList<string>) fixture.CreateMany<string>(imageCount).ToList());
+            fixture.Register(() => (IList<string>)fixture.CreateMany<string>(imageCount).ToList());
             var skin = fixture.Create<Skin>();
             skin.StartOffset.Month = offsetMonth;
             skin.StartOffset.Day = offsetDay;
