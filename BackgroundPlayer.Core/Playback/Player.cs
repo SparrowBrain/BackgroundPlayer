@@ -23,13 +23,13 @@ namespace BackgroundPlayer.Core.Playback
 			_dateTimeProvider = dateTimeProvider;
 		}
 
-		public async Task PlaySkin(Skin skin, CancellationToken cancellationToken)
+		public Task PlaySkin(Skin skin, CancellationToken cancellationToken)
 		{
 			var start = _dateTimeProvider.Now();
-			await PlaySkin(skin, start, cancellationToken);
+			return PlaySkin(skin, start, cancellationToken);
 		}
 
-		public async Task PlaySkin(Skin skin, DateTime playbackStarted, CancellationToken cancellationToken)
+		private async Task PlaySkin(Skin skin, DateTime playbackStarted, CancellationToken cancellationToken)
 		{
 			foreach (var image in _skinCalculator.NextImage(skin, playbackStarted))
 			{

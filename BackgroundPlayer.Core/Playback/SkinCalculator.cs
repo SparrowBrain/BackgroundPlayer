@@ -38,20 +38,20 @@ namespace BackgroundPlayer.Core.Playback
 
 		public IEnumerable<string> NextImage(Skin skin, DateTime playbackStart)
 		{
-			foreach (var image in skin.Images)
+			if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
 			{
-				if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
+				var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
+				var index = GetImageIteration(skin, startAdjustedWithOffset);
+				if (index >= skin.Images.Count)
 				{
-					var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
-					var index = GetImageIteration(skin, startAdjustedWithOffset);
-					if (index >= skin.Images.Count)
-					{
-						yield break;
-					}
-
-					yield return skin.Images[index];
+					yield break;
 				}
-				else
+
+				yield return skin.Images[index];
+			}
+			else
+			{
+				foreach (var image in skin.Images)
 				{
 					yield return image;
 				}
