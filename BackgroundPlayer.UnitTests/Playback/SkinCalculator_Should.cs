@@ -214,17 +214,8 @@ namespace BackgroundPlayer.UnitTests.Playback
 
 		[Theory]
 		[InlineAutoMoqData(5, 5, 1, 1, "2019-01-01T00:00:00", "2019-01-01T00:00:00")]
-		public void ReturnNextImageInOrderWhileAccommodatingTheDayOffset(
-			int imageCount,
-			int durationDays,
-			int offsetMonth,
-			int offsetDay,
-			DateTime start,
-			DateTime now,
-			[Frozen] Mock<IDateTimeProvider> dateTimeProviderMock,
-			SkinCalculator skinCalculator)
+		public void ReturnNextImagesInOrderWhileAccomodatingTheDayOffset(int imageCount, int durationDays, int offsetMonth, int offsetDay, DateTime start, DateTime now, int imageIndex, [Frozen] Mock<IDateTimeProvider> dateTimeProviderMock, SkinCalculator skinCalculator)
 		{
-			// Arrange
 			var fixture = new Fixture();
 			dateTimeProviderMock.Setup(x => x.Now()).Returns(now);
 			fixture.Register(() => TimeSpan.FromDays(durationDays));
@@ -244,15 +235,14 @@ namespace BackgroundPlayer.UnitTests.Playback
 
 			var nextImages = new List<string>();
 
-			// Act
-			for (var day = 0; day < durationDays; day++)
+			var day = 0;
+			foreach (var nextImage in skinCalculator.NextImage(skin, start))
 			{
-				dateTimeProviderMock.Setup(x => x.Now()).Returns(now.AddDays(day));
-				var nextImage = skinCalculator.NextImage(skin, start).Single();
 				nextImages.Add(nextImage);
+				day++;
+				dateTimeProviderMock.Setup(x => x.Now()).Returns(now.AddDays(day));
 			}
 
-			// Assert
 			Assert.Equal(skin.Images, nextImages);
 		}
 
