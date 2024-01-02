@@ -41,20 +41,21 @@ namespace BackgroundPlayer.Core.Playback
 			if (skin.StartOffset.Hour.HasValue || skin.StartOffset.Month.HasValue || skin.StartOffset.Day.HasValue)
 			{
 				var startAdjustedWithOffset = AdjustStartTimeWithOffset(skin, playbackStart);
-				var index = GetImageIteration(skin, startAdjustedWithOffset);
-				if (index >= skin.Images.Count)
+				while (true)
 				{
-					yield break;
+					var index = GetImageIteration(skin, startAdjustedWithOffset);
+					if (index >= skin.Images.Count)
+					{
+						yield break;
+					}
+					
+					yield return skin.Images[index];
 				}
-
-				yield return skin.Images[index];
 			}
-			else
+
+			foreach (var image in skin.Images)
 			{
-				foreach (var image in skin.Images)
-				{
-					yield return image;
-				}
+				yield return image;
 			}
 		}
 
